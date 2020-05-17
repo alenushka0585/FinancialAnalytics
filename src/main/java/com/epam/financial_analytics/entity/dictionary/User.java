@@ -10,6 +10,14 @@ public class User extends Entity {
 
     public User(){}
 
+    public User(String name, String login, String password, String eMail, Role role) {
+        super(name);
+        this.login = login;
+        this.password = password;
+        this.eMail = eMail;
+        this.role = role;
+    }
+
     public User(long id, String name, String login, String password, String eMail, Role role) {
         super(id, name);
         this.login = login;
@@ -17,11 +25,12 @@ public class User extends Entity {
         this.eMail = eMail;
         this.role = role;
     }
-    public User(String name, String login, String password, String eMail) {
-        super(name);
+
+    public User(String login, String password, String eMail, Role role) {
         this.login = login;
         this.password = password;
         this.eMail = eMail;
+        this.role = role;
     }
 
     public String getLogin() {

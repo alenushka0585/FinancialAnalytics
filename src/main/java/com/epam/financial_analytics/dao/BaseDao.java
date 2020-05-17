@@ -5,7 +5,7 @@ import java.util.List;
 public interface BaseDao <E> {
     List<E> getAll();
 
-    E getById(long id);
+    E getByName(String name);
 
     void create(E entity);
 

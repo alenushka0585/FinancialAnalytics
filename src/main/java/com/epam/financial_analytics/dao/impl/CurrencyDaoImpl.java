@@ -17,9 +17,9 @@ public class CurrencyDaoImpl implements BaseDao<Currency> {
     private Connection connection;
     private static final Logger LOGGER = Logger.getLogger(CurrencyDaoImpl.class);
 
-    private static final String ADD_CURRENCY = "INSERT INTO CURRENCY (NAME, ID) VALUES (?,?)";
+    private static final String ADD_CURRENCY = "INSERT INTO CURRENCY (NAME) VALUES (?,?)";
     private static final String GET_ALL = "SELECT * FROM CURRENCY";
-    private static final String GET_BY_ID = "SELECT ID, NAME FROM CURRENCY WHERE ID=?";
+    private static final String GET_BY_NAME = "SELECT ID, NAME FROM CURRENCY WHERE NAME =?";
     private static final String UPDATE_CURRENCY = "UPDATE CURRENCY SET NAME = ? WHERE ID = ?";
     private static final String DELETE_CURRENCY ="DELETE FROM CURRENCY WHERE ID = ?";
 
@@ -47,14 +47,14 @@ public class CurrencyDaoImpl implements BaseDao<Currency> {
     }
 
     @Override
-    public Currency getById(long id){
+    public Currency getByName(String name){
         connectionPool = ConnectionPool.getInstance();
         connection = connectionPool.takeConnection();
 
         Currency currency = new Currency();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_ID)){
-            preparedStatement.setLong(1, id);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_NAME)){
+            preparedStatement.setString(1, name);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {

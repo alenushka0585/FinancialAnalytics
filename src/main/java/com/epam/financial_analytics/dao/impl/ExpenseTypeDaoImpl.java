@@ -19,7 +19,7 @@ public class ExpenseTypeDaoImpl implements BaseDao<ExpenseType> {
 
     private static final String ADD_EXPENSE_TYPE = "INSERT INTO EXPENSE_TYPE (NAME, ID) VALUES (?,?)";
     private static final String GET_ALL = "SELECT * FROM EXPENSE_TYPE";
-    private static final String GET_BY_ID = "SELECT ID, NAME FROM EXPENSE_TYPE WHERE ID=?";
+    private static final String GET_BY_NAME = "SELECT ID, NAME FROM EXPENSE_TYPE WHERE NAME=?";
     private static final String UPDATE_EXPENSE_TYPE = "UPDATE EXPENSE_TYPE SET NAME = ? WHERE ID = ?";
     private static final String DELETE_EXPENSE_TYPE ="DELETE FROM EXPENSE_TYPE WHERE ID = ?";
 
@@ -47,14 +47,14 @@ public class ExpenseTypeDaoImpl implements BaseDao<ExpenseType> {
     }
 
     @Override
-    public ExpenseType getById(long id){
+    public ExpenseType getByName(String name){
         connectionPool = ConnectionPool.getInstance();
         connection = connectionPool.takeConnection();
 
         ExpenseType expenseType = new ExpenseType();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_ID)){
-            preparedStatement.setLong(1, id);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_NAME)){
+            preparedStatement.setString(1, name);
 
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {

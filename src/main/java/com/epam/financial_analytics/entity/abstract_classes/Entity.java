@@ -6,12 +6,12 @@ public abstract class Entity {
 
     public Entity(){}
 
-    public Entity(long id, String name) {
-        this.id = id;
+    public Entity(String name) {
         this.name = name;
     }
 
-    public Entity(String name) {
+    public Entity(long id, String name) {
+        this.id = id;
         this.name = name;
     }
 

@@ -1,10 +1,7 @@
 package com.epam.financial_analytics.service;
 
 import com.epam.financial_analytics.entity.dictionary.User;
-import com.epam.financial_analytics.logic.BasicIndicator;
-import com.epam.financial_analytics.logic.ExpenseIndicator;
-import com.epam.financial_analytics.logic.KazakhstanIndicator;
-import com.epam.financial_analytics.logic.ProductGroupIndicator;
+import com.epam.financial_analytics.logic.AllIndicator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,48 +11,43 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 
-import static com.epam.financial_analytics.service.ServiceConstants.*;
+import static com.epam.financial_analytics.service.ServiceConstant.*;
 
 public class AnalyticsService implements Service {
     private RequestDispatcher requestDispatcher;
 
-    private BasicIndicator basicIndicator;
-    private KazakhstanIndicator kazakhstanIndicator;
+    private AllIndicator allIndicator;
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        Date presentPeriodStartDate = Date.valueOf(req.getParameter("presentPeriodStartDate"));
-        Date presentPeriodFinishDate = Date.valueOf(req.getParameter("presentPeriodFinishDate"));
-        Date pastPeriodStartDate = Date.valueOf(req.getParameter("pastPeriodStartDate"));
-        Date pastPeriodFinishDate = Date.valueOf(req.getParameter("pastPeriodFinishDate"));
-        String currency = req.getParameter("currency");
-        String organizationUnit = req.getParameter("organizationUnit");
+        Date presentPeriodStartDate = Date.valueOf(req.getParameter(PRESENT_PERIOD_START_DATE));
+        Date presentPeriodFinishDate = Date.valueOf(req.getParameter(PRESENT_PERIOD_FINISH_DATE));
+        Date pastPeriodStartDate = Date.valueOf(req.getParameter(PAST_PERIOD_START_DATE));
+        Date pastPeriodFinishDate = Date.valueOf(req.getParameter(PAST_PERIOD_FINISH_DATE));
+        String currency = req.getParameter(CURRENCY);
+        String organizationUnit = req.getParameter(ORGANIZATION_UNIT);
 
         HttpSession session = req.getSession();
-        User user = (User)session.getAttribute("user");
+        User user = (User)session.getAttribute(USER);
         String role = user.getRole().getName();
 
         if ((organizationUnit.equals(KAZAKHSTAN) && role.equals(ADMINISTRATOR)) || (organizationUnit.equals(KAZAKHSTAN) && role.equals(DIRECTOR))){
-            kazakhstanIndicator = new KazakhstanIndicator(presentPeriodStartDate,presentPeriodFinishDate,
-                    pastPeriodStartDate,pastPeriodFinishDate,currency);
-            kazakhstanIndicator.setAll();
-            req.setAttribute("kazakhstanIndicator", kazakhstanIndicator);
-            requestDispatcher = req.getRequestDispatcher(RESULT_COUNTRY_URL);
+            allIndicator = new AllIndicator(presentPeriodStartDate,presentPeriodFinishDate,pastPeriodStartDate, pastPeriodFinishDate, currency);
+            allIndicator.fillAllIndicator();
+            req.setAttribute(ALL_INDICATOR, allIndicator);
+            requestDispatcher = req.getRequestDispatcher(ANALYTICS_RESULT_URL + JSP);
             requestDispatcher.forward(req, resp);
 
         } else if (role.contains(organizationUnit) || role.equals(ADMINISTRATOR) || role.equals(DIRECTOR)){
-            basicIndicator = new BasicIndicator(presentPeriodStartDate,presentPeriodFinishDate,
-                    pastPeriodStartDate,pastPeriodFinishDate,currency);
-            basicIndicator.setAllWithOrganizationUnit(organizationUnit);
+            allIndicator = new AllIndicator(presentPeriodStartDate,presentPeriodFinishDate,pastPeriodStartDate, pastPeriodFinishDate, currency);
+            allIndicator.fillAllIndicatorWithOrganizationUnit(organizationUnit);
 
-            System.out.println(basicIndicator.getChangingOfRevenueInPercents());
-
-            req.setAttribute("basicIndicator", basicIndicator);
-            requestDispatcher = req.getRequestDispatcher(RESULT_ORG_UN_URL);
+            req.setAttribute(ALL_INDICATOR, allIndicator);
+            requestDispatcher = req.getRequestDispatcher(ANALYTICS_RESULT_URL + JSP);
             requestDispatcher.forward(req, resp);
         } else {
-            resp.sendRedirect(RESTRICTED_URL);
+            resp.sendRedirect(RESTRICTED_URL + JSP);
         }
     }
 }

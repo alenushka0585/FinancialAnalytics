@@ -19,7 +19,7 @@ public class ProductGroupDaoImpl implements BaseDao<ProductGroup>{
 
     private static final String ADD_PRODUCT_GROUP = "INSERT INTO PRODUCT_GROUP (NAME, ID) VALUES (?,?)";
     private static final String GET_ALL = "SELECT * FROM PRODUCT_GROUP";
-    private static final String GET_BY_ID = "SELECT ID, NAME FROM PRODUCT_GROUP WHERE ID=?";
+    private static final String GET_BY_NAME = "SELECT ID, NAME FROM PRODUCT_GROUP WHERE NAME=?";
     private static final String UPDATE_PRODUCT_GROUP = "UPDATE PRODUCT_GROUP SET NAME = ? WHERE ID = ?";
     private static final String DELETE_PRODUCT_GROUP ="DELETE FROM PRODUCT_GROUP WHERE ID = ?";
 
@@ -47,14 +47,14 @@ public class ProductGroupDaoImpl implements BaseDao<ProductGroup>{
     }
 
     @Override
-    public ProductGroup getById(long id){
+    public ProductGroup getByName(String name){
         connectionPool = ConnectionPool.getInstance();
         connection = connectionPool.takeConnection();
 
         ProductGroup productGroup = new ProductGroup();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_ID)) {
-            preparedStatement.setLong(1, id);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_NAME)) {
+            preparedStatement.setString(1, name);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {

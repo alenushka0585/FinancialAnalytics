@@ -8,24 +8,99 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="language"/>
 <html>
 <head>
-    <title>Main Page</title>
-</head>
+    <jsp:include page="style.jsp"/>
+    <title></title></head>
 <body>
-<h1 align="center">Choose what are you going to do</h1>
-<%--add checking user--%>
-<form name="administration" action="${pageContext.request.contextPath}/controller/administration" method="post">
-    <button type="submit">Администирование</button>
-</form>
-<form name="analytics" action="${pageContext.request.contextPath}/analytics.jsp" method="post">
-    <button type="submit">Отчет</button>
-</form>
-<p>
-<%--    <jsp:useBean id="user" type="com.epam.financial_analytics.entity.dictionary.User" scope="session" />--%>
-    User name: ${user.name} <br>
-    User role: ${user.role.id}
-</p>
-
+<jsp:useBean id="user" type="com.epam.financial_analytics.entity.dictionary.User" scope="session" />
+<div class="container">
+    <div class="row">
+        <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/main.jsp?language=ru">RU</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/main.jsp?language=en">EN</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav justify-content-end">
+                        <li class="nav-item active justify-content-end">
+                            <form name="logout" action="${pageContext.request.contextPath}/controller/logout" method="post">
+                                <button type="submit" class="btn btn-outline-light btn-sm"><fmt:message key="sign.out"/></button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col">
+            <p class="h4 text-center">
+                <fmt:message key="hello"/> ${user.name}!
+            </p>
+        </div>
+    </div>
+    <br>
+    <br>
+    <c:choose>
+    <c:when test="${sessionScope.user.role.name eq 'администратор'}">
+    <div class="row justify-content-center">
+        <div class="col-sm-6 btn-group">
+            <button type="button" class="btn btn-outline-light btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="menu" aria-expanded="false">
+                <fmt:message key="admin.panel"/>
+            </button>
+            <div class="col-sm-11 dropdown-menu">
+                <form name="basicIndicator" action="${pageContext.request.contextPath}/basic_indicator.jsp" method="post">
+                    <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="key.indicators" /></button>
+                </form>
+                <form name="metal_processing" action="${pageContext.request.contextPath}/metal_processing.jsp" method="post">
+                        <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="metal.processing" /></button>
+                </form>
+                <form name="expense" action="${pageContext.request.contextPath}/expense.jsp" method="post">
+                    <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="expenses" /></button>
+                </form>
+                <form name="productGroup" action="${pageContext.request.contextPath}/product_group.jsp" method="post">
+                    <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="product.group" /></button>
+                </form>
+                <form name="currencyExchangeRate" action="${pageContext.request.contextPath}/currency_exchange_rate.jsp" method="post">
+                    <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="currency.exchange.rate" />
+                    </button>
+                </form>
+                <form name="user" action="${pageContext.request.contextPath}/user.jsp" method="post">
+                    <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="user" /></button>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <form name="analytics" action="${pageContext.request.contextPath}/analytics.jsp" method="post">
+                <button type="submit" class="btn btn-outline-light  btn-rounded"><fmt:message key="report.generation"/></button>
+            </form>
+        </div>
+    </div>
+    </c:when>
+    <c:otherwise>
+        <div class="row align-items-center" >
+            <div class="col-sm-12 justify-content-center">
+                <form name="analytics" action="${pageContext.request.contextPath}/analytics.jsp" method="post">
+                    <button type="submit" class="btn btn-outline-light  btn-rounded-big"><fmt:message key="report.generation"/></button>
+                </form>
+            </div>
+        </div>
+    </c:otherwise>
+    </c:choose>
+</div>
 </body>
 </html>

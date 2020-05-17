@@ -16,19 +16,19 @@ public class CurrencyExchangeRateDaoImpl implements CurrencyExchangeRateDao {
     private static final Logger LOGGER = Logger.getLogger(CurrencyExchangeRateDaoImpl.class);
 
     private static final String ADD_CURRENCY_EXCHANGE_RATE = "INSERT INTO CURRENCY_EXCHANGE_RATE " +
-            "(EXCHANGE_RATE, DATE, CURRENCY_ID, ID) VALUES (?,?,?,?)";
+            "(EXCHANGE_RATE, DATE, CURRENCY_ID) VALUES (?,?,?)";
     private static final String GET_ALL = "SELECT * FROM CURRENCY_EXCHANGE_RATE AS CE " +
             "INNER JOIN CURRENCY AS C ON CE.CURRENCY_ID=C.ID";
     private static final String GET_BY_DATE = "SELECT * FROM CURRENCY_EXCHANGE_RATE AS CE " +
             "INNER JOIN CURRENCY AS C ON CE.CURRENCY_ID=C.ID WHERE DATE BETWEEN ? AND ?";
-    private static final String GET_BY_ID = "SELECT * FROM CURRENCY_EXCHANGE_RATE AS CE " +
-            "INNER JOIN CURRENCY AS C ON CE.CURRENCY_ID=C.ID WHERE CE.ID = ?";
+    private static final String GET_BY_NAME = "SELECT * FROM CURRENCY_EXCHANGE_RATE AS CE " +
+            "INNER JOIN CURRENCY AS C ON CE.CURRENCY_ID=C.ID WHERE CE.NAME = ?";
     private static final String GET_BY_CURRENCY = "SELECT * FROM CURRENCY_EXCHANGE_RATE AS CE " +
             "INNER JOIN CURRENCY AS C ON CE.CURRENCY_ID=C.ID WHERE C.NAME = ?";
     private static final String GET_BY_CURRENCY_AND_DATE = "SELECT * FROM CURRENCY_EXCHANGE_RATE AS CE " +
             "INNER JOIN CURRENCY AS C ON CE.CURRENCY_ID=C.ID WHERE C.NAME = ? AND DATE BETWEEN ? AND ?";
     private static final String UPDATE_CURRENCY_EXCHANGE_RATE = "UPDATE CURRENCY_EXCHANGE_RATE " +
-            "SET EXCHANGE_RATE = ? WHERE DATE = ? AND CURRENCY_ID = ? AND ID = ?";
+            "SET EXCHANGE_RATE = ? WHERE DATE = ? AND CURRENCY_ID = ?";
     private static final String DELETE_CURRENCY_EXCHANGE_RATE ="DELETE FROM CURRENCY_EXCHANGE_RATE " +
             "WHERE DATE = ? AND CURRENCY_ID = ?";
 
@@ -62,7 +62,7 @@ public class CurrencyExchangeRateDaoImpl implements CurrencyExchangeRateDao {
             currencyExchangeRate.setId(resultSet.getLong("ID"));
             currencyExchangeRate.setDate(resultSet.getDate("DATE"));
             currencyExchangeRate.setCurrency(new Currency(resultSet.getLong("CURRENCY_ID"),resultSet.getString("C.NAME")));
-            currencyExchangeRate.setExchangeRate(resultSet.getDouble("EXCHANGE_RATE"));
+            currencyExchangeRate.setCurrencyExchangeRate(resultSet.getDouble("EXCHANGE_RATE"));
 
             currencyExchangeRateList.add(currencyExchangeRate);
         }
@@ -86,20 +86,20 @@ public class CurrencyExchangeRateDaoImpl implements CurrencyExchangeRateDao {
     }
 
     @Override
-    public CurrencyExchangeRate getById(long id) {
+    public CurrencyExchangeRate getByName(String name) {
         connectionPool = ConnectionPool.getInstance();
         connection = connectionPool.takeConnection();
 
         CurrencyExchangeRate currencyExchangeRate = new CurrencyExchangeRate();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_ID)){
-            preparedStatement.setLong(1, id);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_NAME)){
+            preparedStatement.setString(1, name);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     currencyExchangeRate.setId(resultSet.getLong("ID"));
                     currencyExchangeRate.setDate(resultSet.getDate("DATE"));
                     currencyExchangeRate.setCurrency(new Currency(resultSet.getInt("CURRENCY_ID"),resultSet.getString("C.NAME")));
-                    currencyExchangeRate.setExchangeRate(resultSet.getDouble("EXCHANGE_RATE"));
+                    currencyExchangeRate.setCurrencyExchangeRate(resultSet.getDouble("EXCHANGE_RATE"));
                 }
             }
         } catch (SQLException e) {
@@ -142,10 +142,9 @@ public class CurrencyExchangeRateDaoImpl implements CurrencyExchangeRateDao {
         connection = connectionPool.takeConnection();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
-            preparedStatement.setDouble(1, currencyExchangeRate.getExchangeRate());
+            preparedStatement.setDouble(1, currencyExchangeRate.getCurrencyExchangeRate());
             preparedStatement.setDate(2, currencyExchangeRate.getDate());
             preparedStatement.setLong(3, currencyExchangeRate.getCurrency().getId());
-            preparedStatement.setLong(4, currencyExchangeRate.getId());
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

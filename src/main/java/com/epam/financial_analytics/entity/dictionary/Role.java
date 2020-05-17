@@ -6,12 +6,12 @@ public class Role extends Entity{
     public Role() {
     }
 
-    public Role(long id, String name) {
-        super(id, name);
-    }
-
     public Role(String name) {
         super(name);
+    }
+
+    public Role(long id, String name) {
+        super(id, name);
     }
 
     @Override

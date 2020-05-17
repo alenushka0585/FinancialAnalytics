@@ -1,6 +1,6 @@
 package com.epam.financial_analytics.dao;
 
-import com.epam.financial_analytics.entity.abstract_classes.Report;
+import com.epam.financial_analytics.entity.report_classes.Report;
 
 import java.sql.Date;
 import java.sql.ResultSet;

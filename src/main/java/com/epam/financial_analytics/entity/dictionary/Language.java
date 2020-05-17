@@ -6,6 +6,10 @@ public class Language extends Entity {
     public Language() {
     }
 
+    public Language(String name) {
+        super(name);
+    }
+
     public Language(long id, String name) {
         super(id, name);
     }

@@ -1,26 +1,45 @@
 package com.epam.financial_analytics.entity.report_classes;
 
 import com.epam.financial_analytics.entity.dictionary.Currency;
-import com.epam.financial_analytics.entity.abstract_classes.Report;
 
 import java.sql.Date;
+import java.util.Comparator;
 
-public class CurrencyExchangeRate extends Report {
+public class CurrencyExchangeRate{
+    long id;
+    Date date;
     Currency currency;
-    private double exchangeRate;
+    double currencyExchangeRate;
 
     public CurrencyExchangeRate() {
     }
-    public CurrencyExchangeRate(Date date, Currency currency, double exchangeRate) {
-        super(date);
+    public CurrencyExchangeRate(Date date, Currency currency, double currencyExchangeRate) {
+        this.date = date;
         this.currency = currency;
-        this.exchangeRate = exchangeRate;
+        this.currencyExchangeRate = currencyExchangeRate;
     }
 
-    public CurrencyExchangeRate(long id, Date date, Currency currency, double exchangeRate) {
-        super(id, date);
+    public CurrencyExchangeRate(long id, Date date, Currency currency, double currencyExchangeRate) {
+        this.id = id;
+        this.date = date;
         this.currency = currency;
-        this.exchangeRate = exchangeRate;
+        this.currencyExchangeRate = currencyExchangeRate;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public Currency getCurrency() {
@@ -31,18 +50,23 @@ public class CurrencyExchangeRate extends Report {
         this.currency = currency;
     }
 
-    public double getExchangeRate() {
-        return exchangeRate;
+    public double getCurrencyExchangeRate() {
+        return currencyExchangeRate;
     }
 
-    public void setExchangeRate(double exchangeRate) {
-        this.exchangeRate = exchangeRate;
+    public void setCurrencyExchangeRate(double currencyExchangeRate) {
+        this.currencyExchangeRate = currencyExchangeRate;
     }
 
     @Override
     public String toString() {
-        return "CurrencyExchangeRate " + super.toString() +
-                ", " + currency +
-                ", exchangeRate:" + exchangeRate;
+        return "CurrencyExchangeRate " + super.toString()+ ", " + currency;
     }
+
+    public static Comparator<CurrencyExchangeRate> dateSort = new Comparator<CurrencyExchangeRate>() {
+        @Override
+        public int compare(CurrencyExchangeRate o1, CurrencyExchangeRate o2) {
+            return o1.getDate().compareTo(o2.getDate());
+        }
+    };
 }

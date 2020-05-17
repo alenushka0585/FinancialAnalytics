@@ -14,7 +14,7 @@ public final class ConnectionPool {
     private String user;
     private String password;
     private final int poolSize =
-            Integer.parseInt(ResourceBundle.getBundle("ConnectionPool").getString("db.poolsize"));
+            Integer.parseInt(ResourceBundle.getBundle("connectionPool").getString("db.poolsize"));
 
     private final BlockingQueue<Connection> connectionQueue =
             new ArrayBlockingQueue<>(poolSize);
@@ -25,12 +25,12 @@ public final class ConnectionPool {
     private final Logger LOGGER = Logger.getLogger(this.getClass().getName());
 
     private ConnectionPool() {
-        this.driverName = ResourceBundle.getBundle("ConnectionPool").getString("db.driver");
-        this.url = ResourceBundle.getBundle("ConnectionPool").getString("db.url");
-        this.user = ResourceBundle.getBundle("ConnectionPool").getString("db.user");
-        this.password = ResourceBundle.getBundle("ConnectionPool").getString("db.password");
+        this.driverName = ResourceBundle.getBundle("connectionPool").getString("db.driver");
+        this.url = ResourceBundle.getBundle("connectionPool").getString("db.url");
+        this.user = ResourceBundle.getBundle("connectionPool").getString("db.user");
+        this.password = ResourceBundle.getBundle("connectionPool").getString("db.password");
 
-        Locale.setDefault(Locale.ENGLISH);
+//        Locale.setDefault(Locale.ENGLISH);
 
         try {
             Class.forName(driverName);

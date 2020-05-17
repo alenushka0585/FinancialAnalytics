@@ -1,13 +1,13 @@
 package com.epam.financial_analytics.logic;
 
 import com.epam.financial_analytics.dao.impl.CurrencyExchangeRateDaoImpl;
+import com.epam.financial_analytics.entity.report_classes.Report;
 import com.epam.financial_analytics.entity.report_classes.CurrencyExchangeRate;
 
 import java.sql.Date;
 import java.time.Period;
+import java.util.Collections;
 import java.util.List;
-
-import static com.epam.financial_analytics.logic.LogicConstants.*;
 
 public abstract class Indicator {
     private Date presentPeriodStartDate;
@@ -20,10 +20,18 @@ public abstract class Indicator {
     private int amountOfMonths;
     private int oneMonth = 1;
 
+    private long presentPeriodIndicator;
+    private long pastPeriodIndicator;
+    private long changingOfIndicator;
+    private double changingOfIndicatorInPercents;
+
     private String currencyName;
 
     private List<CurrencyExchangeRate> presentPeriodCurrencyList;
     private List<CurrencyExchangeRate> pastPeriodCurrencyList;
+
+    private List<Report> presentPeriodIndicatorList;
+    private List<Report> pastPeriodIndicatorList;
 
     private CurrencyExchangeRateDaoImpl currencyExchangeRateDao = new CurrencyExchangeRateDaoImpl();
 
@@ -34,21 +42,43 @@ public abstract class Indicator {
         this.pastPeriodFinishDate = pastPeriodFinishDate;
         this.currencyName = currencyName;
 
-        setAllPeriods();
+        fillAllPeriods();
     }
 
-    public void setPeriod(){
+    public void fillPeriod(){
         presentPeriod = Period.between(getPresentPeriodStartDate().toLocalDate(), getPresentPeriodFinishDate().toLocalDate());
         pastPeriod = Period.between(getPastPeriodStartDate().toLocalDate(), getPastPeriodFinishDate().toLocalDate());
     }
 
-    public void setAmountOfMonths() {
+    public void fillAmountOfMonths() {
         int present = presentPeriod.getMonths() + oneMonth;
         int past = pastPeriod.getMonths() + oneMonth;
 
         if (present==past) {
-            amountOfMonths = pastPeriod.getMonths() + oneMonth;
+            setAmountOfMonths(pastPeriod.getMonths() + oneMonth);
         }
+    }
+
+    public void fillPresentPeriodCurrencyList() {
+        setPresentPeriodCurrencyList(currencyExchangeRateDao.getByCurrencyAndDate(currencyName, presentPeriodStartDate, presentPeriodFinishDate));
+        Collections.sort(getPresentPeriodCurrencyList(), CurrencyExchangeRate.dateSort);
+    }
+
+    public void fillPastPeriodCurrencyList() {
+        setPastPeriodCurrencyList(currencyExchangeRateDao.getByCurrencyAndDate(currencyName, pastPeriodStartDate, pastPeriodFinishDate));
+        Collections.sort(getPastPeriodCurrencyList(), CurrencyExchangeRate.dateSort);
+    }
+
+    public void setPresentPeriodCurrencyList(List<CurrencyExchangeRate> presentPeriodCurrencyList) {
+        this.presentPeriodCurrencyList = presentPeriodCurrencyList;
+    }
+
+    public void setPastPeriodCurrencyList(List<CurrencyExchangeRate> pastPeriodCurrencyList) {
+        this.pastPeriodCurrencyList = pastPeriodCurrencyList;
+    }
+
+    public void setAmountOfMonths(int amountOfMonths) {
+        this.amountOfMonths = amountOfMonths;
     }
 
     public Date getPresentPeriodStartDate() {
@@ -71,42 +101,81 @@ public abstract class Indicator {
         return presentPeriodCurrencyList;
     }
 
-    public void setPresentPeriodCurrencyList() {
-        this.presentPeriodCurrencyList = currencyExchangeRateDao.getByCurrencyAndDate(currencyName, presentPeriodStartDate, presentPeriodFinishDate);
-    }
-
     public List<CurrencyExchangeRate> getPastPeriodCurrencyList() {
         return pastPeriodCurrencyList;
-    }
-
-    public void setPastPeriodCurrencyList() {
-        this.pastPeriodCurrencyList = currencyExchangeRateDao.getByCurrencyAndDate(currencyName, pastPeriodStartDate, pastPeriodFinishDate);
     }
 
     public String getCurrencyName() {
         return currencyName;
     }
 
-    public static String getCurrencyKzt() {
-        return CURRENCY_KZT;
-    }
-
-    public static String getCurrencyUsd() {
-        return CURRENCY_USD;
-    }
-
-    public static String getCurrencyRub() {
-        return CURRENCY_RUB;
-    }
-
     public int getAmountOfMonths() {
         return amountOfMonths;
     }
 
-    public void setAllPeriods(){
-        setPresentPeriodCurrencyList();
-        setPastPeriodCurrencyList();
-        setPeriod();
-        setAmountOfMonths();
+    public void setPresentPeriodStartDate(Date presentPeriodStartDate) {
+        this.presentPeriodStartDate = presentPeriodStartDate;
+    }
+
+    public long getPresentPeriodIndicator() {
+        return presentPeriodIndicator;
+    }
+
+    public void setPresentPeriodIndicator(long presentPeriodIndicator) {
+        this.presentPeriodIndicator = presentPeriodIndicator;
+    }
+
+    public long getPastPeriodIndicator() {
+        return pastPeriodIndicator;
+    }
+
+    public void setPastPeriodIndicator(long pastPeriodIndicator) {
+        this.pastPeriodIndicator = pastPeriodIndicator;
+    }
+
+    public long getChangingOfIndicator() {
+        return changingOfIndicator;
+    }
+
+    public void setChangingOfIndicator(long changingOfIndicator) {
+        this.changingOfIndicator = changingOfIndicator;
+    }
+
+    public double getChangingOfIndicatorInPercents() {
+        return changingOfIndicatorInPercents;
+    }
+
+    public void setChangingOfIndicatorInPercents(double changingOfIndicatorInPercents) {
+        this.changingOfIndicatorInPercents = changingOfIndicatorInPercents;
+    }
+
+    public List<Report> getPresentPeriodIndicatorList() {
+        return presentPeriodIndicatorList;
+    }
+
+    public void setPresentPeriodIndicatorList(List<Report> presentPeriodIndicatorList) {
+        this.presentPeriodIndicatorList = presentPeriodIndicatorList;
+    }
+
+    public List<Report> getPastPeriodIndicatorList() {
+        return pastPeriodIndicatorList;
+    }
+
+    public void setPastPeriodIndicatorList(List<Report> pastPeriodIndicatorList) {
+        this.pastPeriodIndicatorList = pastPeriodIndicatorList;
+    }
+
+    public void fillAllPeriods(){
+        fillPresentPeriodCurrencyList();
+        fillPastPeriodCurrencyList();
+        fillPeriod();
+        fillAmountOfMonths();
+    }
+
+    public void fillIndicator() {
+        setPresentPeriodIndicator(IndicatorUtil.fillIndicatorSumWithCurrency(getPresentPeriodIndicatorList(), getCurrencyName(), getPresentPeriodCurrencyList()));
+        setPastPeriodIndicator(IndicatorUtil.fillIndicatorSumWithCurrency(getPastPeriodIndicatorList(), getCurrencyName(), getPastPeriodCurrencyList()));
+        setChangingOfIndicator(IndicatorUtil.fillIndicatorChangingSum(getPresentPeriodIndicator(), getPastPeriodIndicator()));
+        setChangingOfIndicatorInPercents(IndicatorUtil.fillIndicatorChangingInPercent(getPresentPeriodIndicator(), getPastPeriodIndicator()));
     }
 }

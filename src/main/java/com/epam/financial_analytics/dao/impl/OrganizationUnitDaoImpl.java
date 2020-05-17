@@ -19,7 +19,7 @@ public class OrganizationUnitDaoImpl implements BaseDao<OrganizationUnit> {
 
     private static final String ADD_ORGANIZATION_UNIT = "INSERT INTO ORGANIZATION_UNIT (NAME, ID) VALUES (?,?)";
     private static final String GET_ALL = "SELECT * FROM ORGANIZATION_UNIT";
-    private static final String GET_BY_ID = "SELECT ID, NAME FROM ORGANIZATION_UNIT WHERE ID=?";
+    private static final String GET_BY_NAME = "SELECT ID, NAME FROM ORGANIZATION_UNIT WHERE NAME=?";
     private static final String UPDATE_ORGANIZATION_UNIT = "UPDATE ORGANIZATION_UNIT SET NAME = ? WHERE ID = ?";
     private static final String DELETE_ORGANIZATION_UNIT ="DELETE FROM ORGANIZATION_UNIT WHERE ID = ?";
 
@@ -47,14 +47,14 @@ public class OrganizationUnitDaoImpl implements BaseDao<OrganizationUnit> {
     }
 
     @Override
-    public OrganizationUnit getById(long id){
+    public OrganizationUnit getByName(String name){
         connectionPool = ConnectionPool.getInstance();
         connection = connectionPool.takeConnection();
 
         OrganizationUnit organizationUnit = new OrganizationUnit();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_ID)){
-            preparedStatement.setLong(1, id);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_NAME)){
+            preparedStatement.setString(1, name);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     organizationUnit.setId(resultSet.getLong("ID"));

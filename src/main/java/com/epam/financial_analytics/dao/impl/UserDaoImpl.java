@@ -19,12 +19,13 @@ public class UserDaoImpl implements UserDao<User> {
     private Connection connection;
     private static final Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
 
-    private static final String ADD_USER = "INSERT INTO USER (NAME, LOGIN, PASSWORD, EMAIL, ROLE, ID) " +
+    private static final String ADD_USER = "INSERT INTO USER (NAME, LOGIN, PASSWORD, EMAIL, ROLE_ID, ID) " +
             "VALUES (?,?,?,?,?,?)";
     private static final String GET_ALL = "SELECT * FROM USER AS U INNER JOIN ROLE AS R ON U.ROLE_ID=R.ID";
-    private static final String GET_BY_ID = "SELECT * FROM USER AS U INNER JOIN ROLE AS R ON U.ROLE_ID=R.ID WHERE ID=?";
-    private static final String UPDATE_USER = "UPDATE USER SET NAME = ?, LOGIN = ?, PASSWORD = ?, EMAIL = ?, ROLE = ? WHERE ID = ?";
+    private static final String GET_BY_NAME = "SELECT * FROM USER AS U INNER JOIN ROLE AS R ON U.ROLE_ID=R.ID WHERE U.NAME=?";
+    private static final String UPDATE_USER = "UPDATE USER SET NAME = ?, LOGIN = ?, PASSWORD = ?, EMAIL = ?, ROLE_ID = ? WHERE ID = ?";
     private static final String DELETE_USER ="DELETE FROM USER WHERE ID = ?";
+    private static final String GET_BY_LOGIN = "SELECT * FROM USER AS U INNER JOIN ROLE AS R ON U.ROLE_ID=R.ID WHERE LOGIN =?";
     private static final String GET_BY_LOGIN_AND_PASSWORD = "SELECT * FROM USER AS U INNER JOIN ROLE AS R ON U.ROLE_ID=R.ID WHERE LOGIN =? AND PASSWORD=?";
 
     @Override
@@ -56,14 +57,14 @@ public class UserDaoImpl implements UserDao<User> {
     }
 
     @Override
-    public User getById(long id){
+    public User getByName(String name){
         connectionPool = ConnectionPool.getInstance();
         connection = connectionPool.takeConnection();
 
         User user = new User();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_ID)){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_NAME)){
 
-            preparedStatement.setLong(1, id);
+            preparedStatement.setString(1, name);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     user.setId(resultSet.getInt("ID"));
@@ -138,6 +139,33 @@ public class UserDaoImpl implements UserDao<User> {
 
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    user.setId(resultSet.getLong("ID"));
+                    user.setName(resultSet.getString("NAME"));
+                    user.setLogin(resultSet.getString("LOGIN"));
+                    user.setPassword(resultSet.getString("PASSWORD"));
+                    user.setEMail(resultSet.getString("EMAIL"));
+                    user.setRole(new Role(resultSet.getLong("ROLE_ID"), resultSet.getString("R.NAME")));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQLException in UserDaoImpl getAll", e);
+        } finally {
+            connectionPool.returnConnection(connection);
+        }
+        return user;
+    }
+
+    @Override
+    public User getByLogin(String login) {
+        connectionPool = ConnectionPool.getInstance();
+        connection = connectionPool.takeConnection();
+
+        User user = new User();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_LOGIN)){
+
+            preparedStatement.setString(1, login);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     user.setId(resultSet.getLong("ID"));

@@ -19,7 +19,7 @@ public class LanguageDaoImpl implements BaseDao<Language> {
 
     private static final String ADD_LANGUAGE = "INSERT INTO LANGUAGE (NAME, ID) VALUES (?,?)";
     private static final String GET_ALL = "SELECT * FROM LANGUAGE";
-    private static final String GET_BY_ID = "SELECT ID, NAME FROM LANGUAGE WHERE ID=?";
+    private static final String GET_BY_NAME = "SELECT ID, NAME FROM LANGUAGE WHERE NAME=?";
     private static final String UPDATE_LANGUAGE = "UPDATE LANGUAGE SET NAME = ? WHERE ID = ?";
     private static final String DELETE_LANGUAGE ="DELETE FROM LANGUAGE WHERE ID = ?";
 
@@ -47,14 +47,14 @@ public class LanguageDaoImpl implements BaseDao<Language> {
     }
 
     @Override
-    public Language getById(long id){
+    public Language getByName(String name){
         connectionPool = ConnectionPool.getInstance();
         connection = connectionPool.takeConnection();
 
         Language language = new Language();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_ID)){
-            preparedStatement.setLong(1, id);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_NAME)){
+            preparedStatement.setString(1, name);
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     language.setId(resultSet.getLong("ID"));
