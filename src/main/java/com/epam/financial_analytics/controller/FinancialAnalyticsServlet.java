@@ -1,7 +1,7 @@
 package com.epam.financial_analytics.controller;
 
-import com.epam.financial_analytics.service.Service;
-import com.epam.financial_analytics.service.ServiceFactory;
+import com.epam.financial_analytics.action.Action;
+import com.epam.financial_analytics.action.ActionFactory;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import java.io.IOException;
 public class FinancialAnalyticsServlet extends HttpServlet {
     private static long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(FinancialAnalyticsServlet.class);
-    private Service service;
+    private Action service;
 
     public FinancialAnalyticsServlet() {
     }
@@ -31,7 +31,7 @@ public class FinancialAnalyticsServlet extends HttpServlet {
     private void getAction(HttpServletRequest req, HttpServletResponse resp){
         String requestPathInfo = req.getPathInfo().toLowerCase();
 
-        service = ServiceFactory.getInstance().getServiceFactory(requestPathInfo);
+        service = ActionFactory.getInstance().getActionFactory(requestPathInfo);
 
         try {
             service.execute(req, resp);

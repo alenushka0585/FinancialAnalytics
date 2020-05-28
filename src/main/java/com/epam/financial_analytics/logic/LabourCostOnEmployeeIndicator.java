@@ -1,15 +1,22 @@
 package com.epam.financial_analytics.logic;
 
+import com.epam.financial_analytics.entity.abstract_classes.Fillable;
+import com.epam.financial_analytics.entity.abstract_classes.Indicator;
+import com.epam.financial_analytics.util.IndicatorUtil;
+
 import java.sql.Date;
 
-public class LabourCostOnEmployeeIndicator extends Indicator implements Fillable{
+public class LabourCostOnEmployeeIndicator extends Indicator implements Fillable {
     private LabourCostIndicator labourCostIndicator;
     private NumberOfStuffIndicator numberOfStuffIndicator;
 
-    public LabourCostOnEmployeeIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate, Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {
+    public LabourCostOnEmployeeIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
+                                         Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {
         super(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        labourCostIndicator = new LabourCostIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        numberOfStuffIndicator = new NumberOfStuffIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
+        labourCostIndicator = new LabourCostIndicator
+                (presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
+        numberOfStuffIndicator = new NumberOfStuffIndicator
+                (presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
     }
 
     @Override

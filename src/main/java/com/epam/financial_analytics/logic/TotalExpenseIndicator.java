@@ -1,127 +1,72 @@
 package com.epam.financial_analytics.logic;
 
-import com.epam.financial_analytics.logic.expense.*;
+import com.epam.financial_analytics.dao.impl.ExpenseTypeDaoImpl;
+import com.epam.financial_analytics.entity.abstract_classes.Fillable;
+import com.epam.financial_analytics.entity.abstract_classes.Indicator;
+import com.epam.financial_analytics.entity.dictionary.ExpenseType;
+import com.epam.financial_analytics.util.IndicatorUtil;
 
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class TotalExpenseIndicator extends Indicator implements Fillable{
+public class TotalExpenseIndicator extends Indicator implements Fillable {
+    private ExpenseTypeDaoImpl expenseTypeDao = new ExpenseTypeDaoImpl();
+    private Map<String, ExpenseIndicator> expenseInfoMap = new HashMap<>();
+    private List<ExpenseType> expenseTypeList;
 
-    private SalaryExpenseIndicator salaryExpenseIndicator;
-    private FactoryExpenseIndicator factoryExpenseIndicator;
-    private TransportExpenseIndicator transportExpenseIndicator;
-    private PackageExpenseIndicator packageExpenseIndicator;
-    private RentExpenseIndicator rentExpenseIndicator;
-    private OthersExpenseIndicator othersExpenseIndicator;
-    private PhoneExpenseIndicator phoneExpenseIndicator;
-    private BusinessTripExpenseIndicator businessTripExpenseIndicator;
-    private AdvertisementExpenseIndicator advertisementExpenseIndicator;
-    private EcquaringExpenseIndicator ecquaringExpenseIndicator;
-
-    public TotalExpenseIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate, Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {
+    public TotalExpenseIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
+                                 Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {
         super(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        salaryExpenseIndicator = new SalaryExpenseIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        factoryExpenseIndicator = new FactoryExpenseIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        transportExpenseIndicator = new TransportExpenseIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        packageExpenseIndicator = new PackageExpenseIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        rentExpenseIndicator = new RentExpenseIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        othersExpenseIndicator= new OthersExpenseIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        phoneExpenseIndicator = new PhoneExpenseIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        businessTripExpenseIndicator = new BusinessTripExpenseIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        advertisementExpenseIndicator = new AdvertisementExpenseIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        ecquaringExpenseIndicator = new EcquaringExpenseIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
+        expenseTypeList = expenseTypeDao.getAll();
     }
 
     @Override
     public void fillAllIndicatorWithOrganizationUnit(String organizationUnitName) {
-        salaryExpenseIndicator.fillAllIndicatorWithOrganizationUnit(organizationUnitName);
-        factoryExpenseIndicator.fillAllIndicatorWithOrganizationUnit(organizationUnitName);
-        transportExpenseIndicator.fillAllIndicatorWithOrganizationUnit(organizationUnitName);
-        packageExpenseIndicator.fillAllIndicatorWithOrganizationUnit(organizationUnitName);
-        rentExpenseIndicator.fillAllIndicatorWithOrganizationUnit(organizationUnitName);
-        othersExpenseIndicator.fillAllIndicatorWithOrganizationUnit(organizationUnitName);
-        phoneExpenseIndicator.fillAllIndicatorWithOrganizationUnit(organizationUnitName);
-        businessTripExpenseIndicator.fillAllIndicatorWithOrganizationUnit(organizationUnitName);
-        advertisementExpenseIndicator.fillAllIndicatorWithOrganizationUnit(organizationUnitName);
-        ecquaringExpenseIndicator.fillAllIndicatorWithOrganizationUnit(organizationUnitName);
+        long presentPeriodTotalIndicator= 0L;
+        long pastPeriodTotalIndicator= 0L;
 
-        fillIndicator();
-    }
+        for (ExpenseType expenseType : expenseTypeList) {
+            ExpenseIndicator expenseIndicator = new ExpenseIndicator
+                    (getPresentPeriodStartDate(),getPresentPeriodFinishDate(),getPastPeriodStartDate(),getPastPeriodFinishDate(),getCurrencyName());
 
-    @Override
-    public void fillAllIndicator() {
-        salaryExpenseIndicator.fillAllIndicator();
-        factoryExpenseIndicator.fillAllIndicator();
-        transportExpenseIndicator.fillAllIndicator();
-        packageExpenseIndicator.fillAllIndicator();
-        rentExpenseIndicator.fillAllIndicator();
-        othersExpenseIndicator.fillAllIndicator();
-        phoneExpenseIndicator.fillAllIndicator();
-        businessTripExpenseIndicator.fillAllIndicator();
-        advertisementExpenseIndicator.fillAllIndicator();
-        ecquaringExpenseIndicator.fillAllIndicator();
+            expenseIndicator.fillAllIndicatorWithOrganizationUnitAndExpenseType(organizationUnitName, expenseType.getName());
+            expenseInfoMap.put(expenseType.getName(), expenseIndicator);
 
-        fillIndicator();
-    }
+            presentPeriodTotalIndicator+=expenseIndicator.getPresentPeriodIndicator();
+            pastPeriodTotalIndicator+=expenseIndicator.getPastPeriodIndicator();
+        }
 
-    @Override
-    public void fillIndicator() {
-        setPresentPeriodIndicator(fillTotalIndicator(salaryExpenseIndicator.getPresentPeriodIndicator(), factoryExpenseIndicator.getPresentPeriodIndicator(),
-                transportExpenseIndicator.getPresentPeriodIndicator(), packageExpenseIndicator.getPresentPeriodIndicator(), rentExpenseIndicator.getPresentPeriodIndicator(),
-                othersExpenseIndicator.getPresentPeriodIndicator(), phoneExpenseIndicator.getPresentPeriodIndicator(), businessTripExpenseIndicator.getPresentPeriodIndicator(),
-                advertisementExpenseIndicator.getPresentPeriodIndicator(), ecquaringExpenseIndicator.getPresentPeriodIndicator()));
-        setPastPeriodIndicator(fillTotalIndicator(salaryExpenseIndicator.getPastPeriodIndicator(), factoryExpenseIndicator.getPastPeriodIndicator(),
-                transportExpenseIndicator.getPastPeriodIndicator(), packageExpenseIndicator.getPastPeriodIndicator(), rentExpenseIndicator.getPastPeriodIndicator(),
-                othersExpenseIndicator.getPastPeriodIndicator(), phoneExpenseIndicator.getPastPeriodIndicator(), businessTripExpenseIndicator.getPastPeriodIndicator(),
-                advertisementExpenseIndicator.getPastPeriodIndicator(), ecquaringExpenseIndicator.getPastPeriodIndicator()));
-
+        setPresentPeriodIndicator(presentPeriodTotalIndicator);
+        setPastPeriodIndicator(pastPeriodTotalIndicator);
         setChangingOfIndicator(IndicatorUtil.fillIndicatorChangingSum(getPresentPeriodIndicator(), getPastPeriodIndicator()));
         setChangingOfIndicatorInPercents(IndicatorUtil.fillIndicatorChangingInPercent(getPresentPeriodIndicator(), getPastPeriodIndicator()));
     }
 
-    public long fillTotalIndicator (long salaryExpense, long factoryExpense, long transportExpense, long packageExpense, long rentExpense, long othersExpense,
-                                      long phoneExpense, long businessTripExpense, long advertisementExpense, long ecquaringExpense){
-        long expenseIndicator = salaryExpense + factoryExpense + transportExpense + packageExpense + rentExpense + othersExpense +
-                phoneExpense + businessTripExpense + advertisementExpense + ecquaringExpense;
-        return expenseIndicator;
+    @Override
+    public void fillAllIndicator() {
+        long presentPeriodTotalIndicator= 0L;
+        long pastPeriodTotalIndicator= 0L;
+
+        for (ExpenseType expenseType : expenseTypeList) {
+            ExpenseIndicator expenseIndicator = new ExpenseIndicator
+                    (getPresentPeriodStartDate(), getPresentPeriodFinishDate(), getPastPeriodStartDate(), getPastPeriodFinishDate(), getCurrencyName());
+
+            expenseIndicator.fillAllIndicatorAndExpenseType(expenseType.getName());
+            expenseInfoMap.put(expenseType.getName(), expenseIndicator);
+
+            presentPeriodTotalIndicator+=expenseIndicator.getPresentPeriodIndicator();
+            pastPeriodTotalIndicator+=expenseIndicator.getPastPeriodIndicator();
+        }
+
+        setPresentPeriodIndicator(presentPeriodTotalIndicator);
+        setPastPeriodIndicator(pastPeriodTotalIndicator);
+        setChangingOfIndicator(IndicatorUtil.fillIndicatorChangingSum(getPresentPeriodIndicator(), getPastPeriodIndicator()));
+        setChangingOfIndicatorInPercents(IndicatorUtil.fillIndicatorChangingInPercent(getPresentPeriodIndicator(), getPastPeriodIndicator()));
     }
 
-    public SalaryExpenseIndicator getSalaryExpenseIndicator() {
-        return salaryExpenseIndicator;
-    }
-
-    public FactoryExpenseIndicator getFactoryExpenseIndicator() {
-        return factoryExpenseIndicator;
-    }
-
-    public TransportExpenseIndicator getTransportExpenseIndicator() {
-        return transportExpenseIndicator;
-    }
-
-    public PackageExpenseIndicator getPackageExpenseIndicator() {
-        return packageExpenseIndicator;
-    }
-
-    public RentExpenseIndicator getRentExpenseIndicator() {
-        return rentExpenseIndicator;
-    }
-
-    public OthersExpenseIndicator getOthersExpenseIndicator() {
-        return othersExpenseIndicator;
-    }
-
-    public PhoneExpenseIndicator getPhoneExpenseIndicator() {
-        return phoneExpenseIndicator;
-    }
-
-    public BusinessTripExpenseIndicator getBusinessTripExpenseIndicator() {
-        return businessTripExpenseIndicator;
-    }
-
-    public AdvertisementExpenseIndicator getAdvertisementExpenseIndicator() {
-        return advertisementExpenseIndicator;
-    }
-
-    public EcquaringExpenseIndicator getEcquaringExpenseIndicator() {
-        return ecquaringExpenseIndicator;
+    public Map<String, ExpenseIndicator> getExpenseInfoMap() {
+        return expenseInfoMap;
     }
 }

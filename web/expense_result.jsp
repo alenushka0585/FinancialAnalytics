@@ -12,52 +12,136 @@
 <html>
 <head>
     <jsp:include page="style.jsp"/>
-</head>
+    <title></title></head>
 <body>
-<div>
-    <a href="${pageContext.request.contextPath}/expense_result.jsp?language=ru">RU</a>
-    <a href="${pageContext.request.contextPath}/expense_result.jsp?language=en">EN</a>
-</div>
 <jsp:useBean id="kindOfReport" type="java.lang.String" scope="request"/>
 <jsp:useBean id="date" type="java.sql.Date" scope="request"/>
 <jsp:useBean id="currency" type="com.epam.financial_analytics.entity.dictionary.Currency" scope="request"/>
 <jsp:useBean id="organizationUnit" type="com.epam.financial_analytics.entity.dictionary.OrganizationUnit" scope="request"/>
-<jsp:useBean id="salary" type="com.epam.financial_analytics.entity.report_classes.ExpenseInfo" scope="request"/>
-<jsp:useBean id="factory" type="com.epam.financial_analytics.entity.report_classes.ExpenseInfo" scope="request"/>
-<jsp:useBean id="transport" type="com.epam.financial_analytics.entity.report_classes.ExpenseInfo" scope="request"/>
-<jsp:useBean id="package" type="com.epam.financial_analytics.entity.report_classes.ExpenseInfo" scope="request"/>
-<jsp:useBean id="rent" type="com.epam.financial_analytics.entity.report_classes.ExpenseInfo" scope="request"/>
-<jsp:useBean id="other" type="com.epam.financial_analytics.entity.report_classes.ExpenseInfo" scope="request"/>
-<jsp:useBean id="phone" type="com.epam.financial_analytics.entity.report_classes.ExpenseInfo" scope="request"/>
-<jsp:useBean id="businessTrip" type="com.epam.financial_analytics.entity.report_classes.ExpenseInfo" scope="request"/>
-<jsp:useBean id="advertisement" type="com.epam.financial_analytics.entity.report_classes.ExpenseInfo" scope="request"/>
-<jsp:useBean id="ecquiring" type="com.epam.financial_analytics.entity.report_classes.ExpenseInfo" scope="request"/>
-
-<h4><fmt:message key="loaded.information"/></h4> <br>
-
-<p><fmt:message key="kind.indicator"/> ${kindOfReport}</p>
-<p><fmt:message key="date"/> ${date}</p>
-<p><fmt:message key="currency"/> ${currency.name}</p>
-<p><fmt:message key="organization.unit"/> ${organizationUnit.name}</p>
-
-<p> <fmt:message key="salary"/> ${salary.amount}</p>
-<p> <fmt:message key="factory"/> ${factory.amount}</p>
-<p> <fmt:message key="transport"/> ${transport.amount}</p>
-<p> <fmt:message key="package"/> ${package.amount}</p>
-<p> <fmt:message key="rent"/> ${rent.amount}</p>
-<p> <fmt:message key="others"/> ${other.amount}</p>
-<p> <fmt:message key="phone"/> ${phone.amount}</p>
-<p> <fmt:message key="business.trip"/> ${businessTrip.amount}</p>
-<p> <fmt:message key="advertisement"/> ${advertisement.amount}</p>
-<p> <fmt:message key="acquiring"/> ${ecquiring.amount}</p>
-
-<form name="back" action="${pageContext.request.contextPath}/basic_indicator.jsp" method="post">
-    <button type="submit"><fmt:message key="back"/></button>
-</form>
-
-<jsp:include page="admin_panel.jsp"/>
-<jsp:include page="main_menu.jsp"/>
-<jsp:include page="logout.jsp"/>
-
+<jsp:useBean id="report" type="java.util.Map" scope="request"/>
+<header class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/expense_result.jsp?language=ru">RU</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/expense_result.jsp?language=en">EN</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav justify-content-end">
+                        <li class="nav-item active justify-content-end">
+                            <form name="main" action="${pageContext.request.contextPath}/main.jsp" method="post">
+                                <button type="submit" class="btn btn-outline-light btn-sm">
+                                    <fmt:message key="main.menu"/>
+                                </button>
+                            </form>
+                        </li>
+                        <li class="nav-item active justify-content-end">
+                            <form name="logout" action="${pageContext.request.contextPath}/controller/logout" method="post">
+                                <button type="submit" class="btn btn-outline-light btn-sm">
+                                    <fmt:message key="sign.out"/>
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<br>
+<br>
+<br>
+<br>
+<main class="main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <p class="h4 text-center">
+                    <fmt:message key="loaded.information"/>
+                </p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+        <div class="col">
+            <p class="h6 text-center" ><fmt:message key="kind.indicator"/>: ${kindOfReport}</p>
+        </div>
+        <div class="col">
+            <p class="h6 text-center" ><fmt:message key="date"/>: ${date}</p>
+        </div>
+        <div class="col">
+            <p class="h6 text-center" ><fmt:message key="currency"/>: ${currency.name}</p>
+        </div>
+        <div class="col">
+            <p class="h6 text-center" ><fmt:message key="organization.unit"/> ${organizationUnit.name}</p>
+        </div>
+        <br>
+        <br>
+        <div class="form-row justify-content-center">
+            <div class="col-sm-4"></div>
+            <table class="table table-bordered col-sm-4">
+                <tbody>
+                <tr>
+                    <td><fmt:message key="salary"/></td>
+                    <td>${report.get("Salary")}</td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="factory"/></td>
+                    <td>${report.get("Factory")}</td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="transport"/></td>
+                    <td>${report.get("Transport")}</td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="package"/></td>
+                    <td>${report.get("Package")}</td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="rent"/></td>
+                    <td>${report.get("Rent")}</td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="others"/></td>
+                    <td>${report.get("Other")}</td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="phone"/></td>
+                    <td>${report.get("Phone")}</td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="business.trip"/></td>
+                    <td>${report.get("BusinessTrip")}</td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="advertisement"/></td>
+                    <td>${report.get("Advertisement")}</td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="acquiring"/></td>
+                    <td>${report.get("Acquiring")}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-sm-4"></div>
+        </div>
+        <br>
+        <br>
+        <div class="form-row justify-content-center">
+            <div class="col-sm-4">
+                <form name="back" action="${pageContext.request.contextPath}/expense.jsp" method="post">
+                    <button type="submit" class="btn btn-outline-light btn-block"><fmt:message key="back"/></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 </html>

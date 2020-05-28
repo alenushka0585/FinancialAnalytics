@@ -1,11 +1,14 @@
 package com.epam.financial_analytics.logic;
 
+import com.epam.financial_analytics.entity.abstract_classes.Fillable;
+import com.epam.financial_analytics.entity.abstract_classes.Indicator;
+
 import java.sql.Date;
 
 public class AllIndicator extends Indicator implements Fillable {
     private PercentExpenseToRevenueIndicator percentExpenseToRevenueIndicator;
     private MetalProcessingIndicator metalProcessingIndicator;
-    private ProfitabilityTotalIndicator profitabilityTotalIndicator;
+    private TotalProfitabilityIndicator profitabilityTotalIndicator;
     private MarginOnSquareMetreIndicator marginOnSquareMetreIndicator;
     private MarginOnTonsIndicator marginOnTonsIndicator;
     private MarginOnEmployeeIndicator marginOnEmployeeIndicator;
@@ -13,18 +16,27 @@ public class AllIndicator extends Indicator implements Fillable {
     private LabourCostOnSquareMetreIndicator labourCostOnSquareMetreIndicator;
     private LabourCostOnTonIndicator labourCostOnTonIndicator;
 
-    public AllIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate, Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {
+    public AllIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
+                        Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {
         super(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        percentExpenseToRevenueIndicator = new PercentExpenseToRevenueIndicator(presentPeriodStartDate, presentPeriodFinishDate,
-                pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        metalProcessingIndicator = new MetalProcessingIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        profitabilityTotalIndicator = new ProfitabilityTotalIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        marginOnSquareMetreIndicator = new MarginOnSquareMetreIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        marginOnTonsIndicator = new MarginOnTonsIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        marginOnEmployeeIndicator = new MarginOnEmployeeIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        labourCostOnEmployeeIndicator = new LabourCostOnEmployeeIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        labourCostOnSquareMetreIndicator = new LabourCostOnSquareMetreIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
-        labourCostOnTonIndicator = new LabourCostOnTonIndicator(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
+        percentExpenseToRevenueIndicator = new PercentExpenseToRevenueIndicator
+                (presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
+        metalProcessingIndicator = new MetalProcessingIndicator
+                (presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
+        profitabilityTotalIndicator = new TotalProfitabilityIndicator
+                (presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
+        marginOnSquareMetreIndicator = new MarginOnSquareMetreIndicator
+                (presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
+        marginOnTonsIndicator = new MarginOnTonsIndicator
+                (presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
+        marginOnEmployeeIndicator = new MarginOnEmployeeIndicator
+                (presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
+        labourCostOnEmployeeIndicator = new LabourCostOnEmployeeIndicator
+                (presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
+        labourCostOnSquareMetreIndicator = new LabourCostOnSquareMetreIndicator
+                (presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
+        labourCostOnTonIndicator = new LabourCostOnTonIndicator
+                (presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
     }
 
     @Override
@@ -73,7 +85,7 @@ public class AllIndicator extends Indicator implements Fillable {
         return metalProcessingIndicator;
     }
 
-    public ProfitabilityTotalIndicator getProfitabilityTotalIndicator() {
+    public TotalProfitabilityIndicator getProfitabilityTotalIndicator() {
         return profitabilityTotalIndicator;
     }
 

@@ -12,32 +12,95 @@
 <html>
 <head>
     <jsp:include page="style.jsp"/>
-</head>
+    <title></title></head>
 <body>
-<div>
-    <a href="${pageContext.request.contextPath}/metal_processing_result.jsp?language=ru">RU</a>
-    <a href="${pageContext.request.contextPath}/metal_processing_result.jsp?language=en">EN</a>
-</div>
 <jsp:useBean id="kindOfReport" type="java.lang.String" scope="request"/>
 <jsp:useBean id="date" type="java.sql.Date" scope="request"/>
-<jsp:useBean id="karaganda" type="com.epam.financial_analytics.entity.report_classes.ReportWithOrganization" scope="request"/>
-<jsp:useBean id="almaty" type="com.epam.financial_analytics.entity.report_classes.ReportWithOrganization" scope="request"/>
-
-<h4><fmt:message key="loaded.information"/></h4> <br>
-
-<p><fmt:message key="kind.indicator"/> ${kindOfReport}</p>
-<p><fmt:message key="date"/> ${date}</p>
-
-<p> <fmt:message key="karaganda"/> ${karaganda.amount}</p>
-<p> <fmt:message key="almaty"/> ${almaty.amount}</p>
-
-<form name="back" action="${pageContext.request.contextPath}/metal_processing.jsp" method="post">
-    <button type="submit"><fmt:message key="back"/></button>
-</form>
-
-<jsp:include page="admin_panel.jsp"/>
-<jsp:include page="main_menu.jsp"/>
-<jsp:include page="logout.jsp"/>
-
+<jsp:useBean id="Karaganda" type="com.epam.financial_analytics.entity.report_classes.ReportWithOrganization" scope="request"/>
+<jsp:useBean id="Almaty" type="com.epam.financial_analytics.entity.report_classes.ReportWithOrganization" scope="request"/>
+<header class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/metal_processing_result.jsp?language=ru">RU</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/metal_processing_result.jsp?language=en">EN</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav justify-content-end">
+                        <li class="nav-item active justify-content-end">
+                            <form name="main" action="${pageContext.request.contextPath}/main.jsp" method="post">
+                                <button type="submit" class="btn btn-outline-light btn-sm">
+                                    <fmt:message key="main.menu"/>
+                                </button>
+                            </form>
+                        </li>
+                        <li class="nav-item active justify-content-end">
+                            <form name="logout" action="${pageContext.request.contextPath}/controller/logout" method="post">
+                                <button type="submit" class="btn btn-outline-light btn-sm">
+                                    <fmt:message key="sign.out"/>
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<br>
+<br>
+<br>
+<br>
+<main class="main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <p class="h4 text-center">
+                    <fmt:message key="loaded.information"/>
+                </p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+        <div class="col">
+            <p class="h6 text-center" ><fmt:message key="kind.indicator"/>: ${kindOfReport}</p>
+        </div>
+        <div class="col">
+            <p class="h6 text-center" ><fmt:message key="date"/>: ${date}</p>
+        </div>
+        <br>
+        <br>
+        <div class="form-row justify-content-center">
+            <table class="table table-bordered col-sm-4">
+                <tbody>
+                <tr>
+                    <td><fmt:message key="karaganda"/></td>
+                    <td>${Karaganda.amount}</td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="almaty"/></td>
+                    <td>${Almaty.amount}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <br>
+        <div class="form-row justify-content-center">
+            <div class="col-sm-3">
+                <form name="back" action="${pageContext.request.contextPath}/metal_processing.jsp" method="post">
+                    <button type="submit" class="btn btn-outline-light btn-block"><fmt:message key="back"/></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 </html>

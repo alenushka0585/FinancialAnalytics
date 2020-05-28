@@ -56,7 +56,7 @@
     <br>
     <br>
     <c:choose>
-    <c:when test="${sessionScope.user.role.name eq 'администратор'}">
+    <c:when test="${sessionScope.user.role.name eq 'Admin'}">
     <div class="row justify-content-center">
         <div class="col-sm-6 btn-group">
             <button type="button" class="btn btn-outline-light btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="menu" aria-expanded="false">
@@ -84,19 +84,55 @@
                 </form>
             </div>
         </div>
-        <div class="col-sm-6">
-            <form name="analytics" action="${pageContext.request.contextPath}/analytics.jsp" method="post">
-                <button type="submit" class="btn btn-outline-light  btn-rounded"><fmt:message key="report.generation"/></button>
-            </form>
+        <div class="col-sm-6 btn-group">
+            <button type="button" class="btn btn-outline-light btn-rounded dropdown-toggle" data-toggle="dropdown" aria-haspopup="menu" aria-expanded="false">
+                <fmt:message key="report.generation"/>
+            </button>
+            <div class="col-sm-11 dropdown-menu">
+                <form name="analytics" action="${pageContext.request.contextPath}/analytics.jsp" method="post">
+                    <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="comparative.report" /></button>
+                </form>
+                <form name="absoluteIndicators = Absolute indicators" action="${pageContext.request.contextPath}/key_indicators_for_period.jsp" method="post">
+                    <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="key.indicators.for.period"/></button>
+                </form>
+                <form name="expenseIndicatorForPeriod" action="${pageContext.request.contextPath}/expense_for_period.jsp" method="post">
+                    <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="expense.indicators.for.period" /></button>
+                </form>
+                <form name="productGroupIndicatorForPeriod" action="${pageContext.request.contextPath}/product_group_for_period.jsp" method="post">
+                    <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="product.group.for.period" /></button>
+                </form>
+                <form name="currencyExchangeRateForThePeriod" action="${pageContext.request.contextPath}/currency_exchange_rate.jsp" method="post">
+                    <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="currency.exchange.rate" />
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
     </c:when>
     <c:otherwise>
         <div class="row align-items-center" >
-            <div class="col-sm-12 justify-content-center">
-                <form name="analytics" action="${pageContext.request.contextPath}/analytics.jsp" method="post">
-                    <button type="submit" class="btn btn-outline-light  btn-rounded-big"><fmt:message key="report.generation"/></button>
-                </form>
+            <div class="col-sm-12 justify-content-center btn-group">
+                <button type="button" class="btn btn-outline-light btn-rounded-big dropdown-toggle" data-toggle="dropdown" aria-haspopup="menu" aria-expanded="false">
+                    <fmt:message key="report.generation"/>
+                </button>
+                <div class="col-sm-12 dropdown-menu">
+                    <form name="analytics" action="${pageContext.request.contextPath}/analytics.jsp" method="post">
+                        <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="comparative.report" /></button>
+                    </form>
+                    <form name="keyIndicatorsForPeriod" action="${pageContext.request.contextPath}/key_indicators_for_period.jsp" method="post">
+                        <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="key.indicators.for.period"/></button>
+                    </form>
+                    <form name="expenseIndicatorForPeriod" action="${pageContext.request.contextPath}/expense_for_period.jsp" method="post">
+                        <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="expense.indicators.for.period" /></button>
+                    </form>
+                    <form name="productGroupIndicatorForPeriod" action="${pageContext.request.contextPath}/product_group_for_period.jsp" method="post">
+                        <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="product.group.for.period" /></button>
+                    </form>
+                    <form name="currencyExchangeRateForThePeriod" action="${pageContext.request.contextPath}/currency_exchange_rate.jsp" method="post">
+                        <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="currency.exchange.rate" />
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </c:otherwise>

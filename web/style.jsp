@@ -14,7 +14,7 @@
     <title><fmt:message key="financial.analytics"/></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
-    <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+    <link rel="stylesheet"  href="${pageContext.request.contextPath}/lib/css/bootstrap.min.css">
     <style type="text/css">
         body {
             background: rgb(109,189,233);
@@ -67,8 +67,8 @@
     </style>
 </head>
 <body>
-<script src="lib/jquery-3.5.0.min.js"></script>
-<script src="lib/js/popper.min.js"></script>
-<script src="lib/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/lib/jquery-3.5.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/lib/js/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/lib/js/bootstrap.min.js"></script>
 </body>
 </html>

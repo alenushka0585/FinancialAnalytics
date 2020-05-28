@@ -12,54 +12,169 @@
 <html>
 <head>
     <jsp:include page="style.jsp"/>
-</head>
+    <title></title></head>
 <body>
-<div>
-    <a href="${pageContext.request.contextPath}/expense.jsp?language=ru">RU</a>
-    <a href="${pageContext.request.contextPath}/expense.jsp?language=en">EN</a>
-</div>
-<h4><fmt:message key="choose.indicator.date.currency.organization.unit"/></h4> <br>
-<form name="expenseIndicator" action="${pageContext.request.contextPath}/controller/expense" method="post">
-    <fmt:message key="kind.indicator"/> <label>
-    <select name="kindOfReport" size="1">
-    <option value="<fmt:message key="expenses"/>"><fmt:message key="expenses"/></option></select>
-</label>
-    <p><fmt:message key="date"/> <label><input type="date" name="date" required></label>
-        <fmt:message key="currency"/> <label><select class="mdb-select md-form" name="currency" size="1"> <option value="RUB">RUB</option></select></label>
-        <fmt:message key="organization.unit"/> <label>
-            <select class="mdb-select md-form" name="organizationUnit" size="1">
-                <option value="Караганда"> <fmt:message key="karaganda"/> </option>
-                <option value="Алматы"> <fmt:message key="almaty"/> </option>
-                <option value="Атырау"> <fmt:message key="atyrau"/> </option>
-                <option value="Астана"> <fmt:message key="astana"/> </option>
-                <option value="Актобе"> <fmt:message key="aktobe"/> </option>
-                <option value="Оскемен"> <fmt:message key="oskemen"/> </option>
-                <option value="Шымкент"> <fmt:message key="shymkent"/> </option>
-            </select>
-        </label>
-    </p>
-
-    <p><label><select class="mdb-select md-form" name="salary" size="1"> <option value="Зарплата"><fmt:message key="salary"/></option></select></label> <label><input type="number"  name="amountSalary" required></label></p>
-    <p><label><select class="mdb-select md-form" name="factory" size="1"><option value="Заводские расходы"><fmt:message key="factory"/></option></select></label> <label><input type="number" name="amountFactory" required></label></p>
-    <p><label><select class="mdb-select md-form" name="transport" size="1"><option value="Транспорт"><fmt:message key="transport"/></option></select></label> <label><input type="number" name="amountTransport" required></label></p>
-    <p><label><select class="mdb-select md-form" name="package" size="1"><option value="Упаковка"><fmt:message key="package"/></option></select></label> <label><input type="number" name="amountPackage" required></label></p>
-    <p><label><select class="mdb-select md-form" name="rent" size="1"><option value="Аренда"><fmt:message key="rent"/></option></select></label> <label><input type="number" name="amountRent" required></label></p>
-    <p><label><select class="mdb-select md-form" name="other" size="1"><option value="Разное"><fmt:message key="others"/></option></select></label> <label><input type="number" name="amountOther" required></label></p>
-    <p><label><select class="mdb-select md-form" name="phone" size="1"><option value="Телефон"><fmt:message key="phone"/></option></select></label> <label><input type="number" name="amountPhone" required></label></p>
-    <p><label><select class="mdb-select md-form" name="businessTrip" size="1"><option value="Командировки"><fmt:message key="business.trip"/></option></select></label> <label><input type="number" name="amountBusinessTrip" required></label></p>
-    <p><label><select class="mdb-select md-form" name="advertisement" size="1"><option value="Реклама"><fmt:message key="advertisement"/></option></select></label> <label><input type="number" name="amountAdvertisement" required></label></p>
-    <p><label><select class="mdb-select md-form" name="ecquiring" size="1"><option value="Эквайринг"><fmt:message key="acquiring"/></option></select></label> <label><input type="number" name="amountEcquiring" required></label></p>
-
-    <p>
-        <button type="submit"><fmt:message key="load.into.db"/></button>
-        <input type="reset" value="<fmt:message key="clear"/>">
-    </p>
-
-</form>
-
-<jsp:include page="admin_panel.jsp"/>
-<jsp:include page="main_menu.jsp"/>
-<jsp:include page="logout.jsp"/>
-
+<header class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/expense.jsp?language=ru">RU</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/expense.jsp?language=en">EN</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav justify-content-end">
+                        <li class="nav-item active justify-content-end">
+                            <form name="main" action="${pageContext.request.contextPath}/main.jsp" method="post">
+                                <button type="submit" class="btn btn-outline-light btn-sm">
+                                    <fmt:message key="main.menu"/>
+                                </button>
+                            </form>
+                        </li>
+                        <li class="nav-item active justify-content-end">
+                            <form name="logout" action="${pageContext.request.contextPath}/controller/logout" method="post">
+                                <button type="submit" class="btn btn-outline-light btn-sm">
+                                    <fmt:message key="sign.out"/>
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<br>
+<br>
+<br>
+<br>
+<main class="main">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <p class="h4 text-center">
+                    <fmt:message key="choose.indicator.date.currency"/>
+                </p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+        <form name="basicIndicator" action="${pageContext.request.contextPath}/controller/expense" method="post">
+            <div class="form-row justify-content-center">
+                <label for="kindOfReport" class="col-sm-1.5 col-form-label">
+                    <fmt:message key="kind.indicator"/>:
+                </label>
+                <div class="col-sm-2">
+                    <select id="kindOfReport" class="form-control" name="kindOfReport" size="1">
+                        <option value="<fmt:message key="expenses"/>"><fmt:message key="expenses"/></option>
+                    </select>
+                </div>
+                <label for="date" class="col-sm-0.5 col-form-label">
+                    <fmt:message key="date"/>:
+                </label>
+                <div class="col-sm-1.2">
+                    <input id="date" class="form-control" type="date" name="date" required>
+                </div>
+                <label for="currency" class="col-sm-1 col-form-label">
+                    <fmt:message key="currency"/>:
+                </label>
+                <div class="col-sm-1">
+                    <select id="currency" class="form-control" name="currency" size="1"> <option value="RUB">RUB</option></select>
+                </div>
+                <label for="organization.unit" class="col-sm-1.5 col-form-label">
+                    <fmt:message key="organization.unit"/>:
+                </label>
+                <div class="col-sm-1.5">
+                    <select id="organization.unit" class="form-control" name="organizationUnit" size="1">
+                        <option value="Karaganda"> <fmt:message key="karaganda"/> </option>
+                        <option value="Almaty"> <fmt:message key="almaty"/> </option>
+                        <option value="Atyrau"> <fmt:message key="atyrau"/> </option>
+                        <option value="Astana"> <fmt:message key="astana"/> </option>
+                        <option value="Aktobe"> <fmt:message key="aktobe"/> </option>
+                        <option value="Oskemen"> <fmt:message key="oskemen"/> </option>
+                        <option value="Shymkent"> <fmt:message key="shymkent"/> </option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="form-row justify-content-center">
+                <label for="amountSalary" class="col-sm-2 col-form-label" ><fmt:message key="salary"/>:</label>
+                <div class="col-sm-4">
+                    <input id="amountSalary" class="form-control justify-content-end" type="number" name="amountSalary" required>
+                </div>
+            </div>
+            <div class="form-row  justify-content-center">
+                <label for="amountFactory" class="col-sm-2 col-form-label"><fmt:message key="factory"/>:</label>
+                <div class="col-sm-4">
+                    <input id="amountFactory" class="form-control justify-content-end" type="number" name="amountFactory" required>
+                </div>
+            </div>
+            <div class="form-row  justify-content-center">
+                <label for="amountTransport" class="col-sm-2 col-form-label" ><fmt:message key="transport"/>:</label>
+                <div class="col-sm-4">
+                    <input id="amountTransport" class="form-control" type="number" name="amountTransport" required>
+                </div>
+            </div>
+            <div class="form-row justify-content-center">
+                <label for="amountPackage" class="col-sm-2 col-form-label"><fmt:message key="package"/>:</label>
+                <div class="col-sm-4">
+                    <input id="amountPackage" class="form-control" type="number" name="amountPackage" required>
+                </div>
+            </div>
+            <div class="form-row justify-content-center">
+                <label for="amountRent" class="col-sm-2 col-form-label"><fmt:message key="rent"/>:</label>
+                <div class="col-sm-4">
+                    <input id="amountRent" class="form-control" type="number" name="amountRent" required>
+                </div>
+            </div>
+            <div class="form-row justify-content-center">
+                <label for="amountOther" class="col-sm-2 col-form-label"><fmt:message key="others"/>:</label>
+                <div class="col-sm-4">
+                    <input id="amountOther" class="form-control" type="number" name="amountOther" required>
+                </div>
+            </div>
+            <div class="form-row justify-content-center">
+                <label for="amountPhone" class="col-sm-2 col-form-label"><fmt:message key="phone"/>:</label>
+                <div class="col-sm-4">
+                    <input id="amountPhone" class="form-control" type="number" name="amountPhone" required>
+                </div>
+            </div>
+            <div class="form-row justify-content-center">
+                <label for="amountBusinessTrip" class="col-sm-2 col-form-label"><fmt:message key="business.trip"/>:</label>
+                <div class="col-sm-4">
+                    <input id="amountBusinessTrip" class="form-control" type="number" name="amountBusinessTrip" required>
+                </div>
+            </div>
+            <div class="form-row justify-content-center">
+                <label for="amountAdvertisement" class="col-sm-2 col-form-label"><fmt:message key="advertisement"/>:</label>
+                <div class="col-sm-4">
+                    <input id="amountAdvertisement" class="form-control" type="number" name="amountAdvertisement" required>
+                </div>
+            </div>
+            <div class="form-row justify-content-center">
+                <label for="amountAcquiring" class="col-sm-2 col-form-label"><fmt:message key="acquiring"/>:</label>
+                <div class="col-sm-4">
+                    <input id="amountAcquiring" class="form-control" type="number" name="amountAcquiring" required>
+                </div>
+            </div>
+            <br>
+            <div class="form-row justify-content-center">
+                <div class="col-xs-1">
+                    <button class="btn btn-outline-light" type="submit"><fmt:message key="load.into.db"/></button>
+                </div>
+                <div class="col-xs-1">
+                    <input class="btn btn-outline-light" type="reset" value="<fmt:message key="clear"/>">
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
 </body>
 </html>

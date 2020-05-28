@@ -8,6 +8,7 @@ import java.io.IOException;
 public class LanguageFilter implements Filter {
     public static final String LANGUAGE = "language";
     public static final String LOCAL = "local";
+    public static String EN = "en";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -19,7 +20,7 @@ public class LanguageFilter implements Filter {
 
         HttpSession session = req.getSession();
 
-        String en_EN = "en";
+
 
         if (req.getParameter(LANGUAGE) != null) {
             session.setAttribute(LOCAL, req.getParameter(LANGUAGE));
@@ -27,7 +28,7 @@ public class LanguageFilter implements Filter {
             String locale = (String) session.getAttribute(LOCAL);
             session.setAttribute(LOCAL, locale);
         } else {
-            session.setAttribute(LOCAL, en_EN);
+            session.setAttribute(LOCAL, EN);
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

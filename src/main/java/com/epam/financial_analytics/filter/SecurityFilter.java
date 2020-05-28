@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static com.epam.financial_analytics.service.ServiceConstant.*;
+import static com.epam.financial_analytics.action.ActionConstant.*;
 
 public class SecurityFilter implements Filter {
     private FilterConfig filterConfig;

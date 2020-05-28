@@ -1,14 +1,18 @@
 package com.epam.financial_analytics.logic;
 
 import com.epam.financial_analytics.dao.impl.SalesOfSquareMetresDaoImpl;
+import com.epam.financial_analytics.entity.abstract_classes.Fillable;
+import com.epam.financial_analytics.entity.abstract_classes.Indicator;
+import com.epam.financial_analytics.util.IndicatorUtil;
 
 import java.sql.Date;
 
-public class SalesOfSquareMetresIndicator extends Indicator implements Fillable{
+public class SalesOfSquareMetresIndicator extends Indicator implements Fillable {
 
     public SalesOfSquareMetresDaoImpl salesOfSquareMetresDao = new SalesOfSquareMetresDaoImpl();
 
-    public SalesOfSquareMetresIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate, Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {
+    public SalesOfSquareMetresIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
+                                        Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {
         super(presentPeriodStartDate, presentPeriodFinishDate, pastPeriodStartDate, pastPeriodFinishDate, currencyName);
     }
 
@@ -18,15 +22,19 @@ public class SalesOfSquareMetresIndicator extends Indicator implements Fillable{
 
     @Override
     public void fillAllIndicatorWithOrganizationUnit(String organizationUnitName) {
-        setPresentPeriodIndicatorList(IndicatorUtil.fillIndicatorSumListWithOrganizationUnit(getSalesOfSquareMetresDao(),getPresentPeriodStartDate(),getPresentPeriodFinishDate(),organizationUnitName));
-        setPastPeriodIndicatorList(IndicatorUtil.fillIndicatorSumListWithOrganizationUnit(getSalesOfSquareMetresDao(),getPastPeriodStartDate(),getPastPeriodFinishDate(),organizationUnitName));
+        setPresentPeriodIndicatorList(IndicatorUtil.fillIndicatorSumListWithOrganizationUnit(getSalesOfSquareMetresDao(),
+                getPresentPeriodStartDate(),getPresentPeriodFinishDate(),organizationUnitName));
+        setPastPeriodIndicatorList(IndicatorUtil.fillIndicatorSumListWithOrganizationUnit(getSalesOfSquareMetresDao(),
+                getPastPeriodStartDate(),getPastPeriodFinishDate(),organizationUnitName));
         fillIndicator();
     }
 
     @Override
     public void fillAllIndicator() {
-        setPresentPeriodIndicatorList(IndicatorUtil.fillIndicatorSumList(getSalesOfSquareMetresDao(),getPresentPeriodStartDate(),getPresentPeriodFinishDate()));
-        setPastPeriodIndicatorList(IndicatorUtil.fillIndicatorSumList(getSalesOfSquareMetresDao(),getPastPeriodStartDate(),getPastPeriodFinishDate()));
+        setPresentPeriodIndicatorList(IndicatorUtil.fillIndicatorSumList(getSalesOfSquareMetresDao(),getPresentPeriodStartDate(),
+                getPresentPeriodFinishDate()));
+        setPastPeriodIndicatorList(IndicatorUtil.fillIndicatorSumList(getSalesOfSquareMetresDao(),getPastPeriodStartDate(),
+                getPastPeriodFinishDate()));
         fillIndicator();
     }
 
@@ -35,6 +43,7 @@ public class SalesOfSquareMetresIndicator extends Indicator implements Fillable{
         setPresentPeriodIndicator(IndicatorUtil.fillIndicatorSum(getPresentPeriodIndicatorList()));
         setPastPeriodIndicator(IndicatorUtil.fillIndicatorSum(getPastPeriodIndicatorList()));
         setChangingOfIndicator(IndicatorUtil.fillIndicatorChangingSum(getPresentPeriodIndicator(), getPastPeriodIndicator()));
-        setChangingOfIndicatorInPercents(IndicatorUtil.fillIndicatorChangingInPercent(getPresentPeriodIndicator(), getPastPeriodIndicator()));
+        setChangingOfIndicatorInPercents(IndicatorUtil.fillIndicatorChangingInPercent(getPresentPeriodIndicator(),
+                getPastPeriodIndicator()));
     }
 }

@@ -57,7 +57,7 @@
         <div class="row">
             <div class="col">
                 <p class="h4 text-center">
-                    <fmt:message key="choose.indicator.date.currency.organization.unit"/>
+                    <fmt:message key="choose.indicator.date.currency"/>
                 </p>
             </div>
         </div>
@@ -67,28 +67,28 @@
     <div class="container">
         <form name="basicIndicator" action="${pageContext.request.contextPath}/controller/basic_indicator" method="post">
             <div class="form-row justify-content-center">
-                <label for="kindOfReport" class="col-sm-2 col-form-label">
+                <label for="kindOfReport" class="col-sm-1.5 col-form-label">
                     <fmt:message key="kind.indicator"/>:
                 </label>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <select id="kindOfReport" class="form-control" name="kindOfReport" size="1">
-                        <option value="<fmt:message key="number.of.stuff"/>"><fmt:message key="number.of.stuff"/></option>
-                        <option value="<fmt:message key="labour.cost"/>"> <fmt:message key="labour.cost"/></option>
-                        <option value="<fmt:message key="sales.sq.metres"/>"> <fmt:message key="sales.sq.metres"/></option>
-                        <option value="<fmt:message key="sales.tons"/>"><fmt:message key="sales.tons"/></option>
-                        <option value="<fmt:message key="revenue"/>"><fmt:message key="revenue"/></option>
+                        <option value="Number of stuff"><fmt:message key="number.of.stuff"/></option>
+                        <option value="Labour cost"> <fmt:message key="labour.cost"/></option>
+                        <option value="Sales of square metres"> <fmt:message key="sales.sq.metres"/></option>
+                        <option value="Sales of tons"><fmt:message key="sales.tons"/></option>
+                        <option value="Revenue"><fmt:message key="revenue"/></option>
                     </select>
                 </div>
-                <label for="date" class="col-sm-1 col-form-label">
+                <label for="date" class="col-sm-0.5 col-form-label">
                     <fmt:message key="date"/>:
                 </label>
-                <div class="col-sm-2">
+                <div class="col-sm-1.2">
                     <input id="date" class="form-control" type="date" name="date" required>
                 </div>
-                <label for="currency" class="col-sm-2 col-form-label">
+                <label for="currency" class="col-sm-1 col-form-label">
                     <fmt:message key="currency"/>:
                 </label>
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                     <select id="currency" class="form-control" name="currency" size="1"> <option value="RUB">RUB</option></select>
                 </div>
             </div>
