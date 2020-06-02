@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="language"/>
 <html>
@@ -15,9 +16,9 @@
     <title></title></head>
 <body>
 <jsp:useBean id="kindOfReport" type="java.lang.String" scope="request"/>
-<jsp:useBean id="date" type="java.sql.Date" scope="request"/>
-<jsp:useBean id="currency" type="com.epam.financial_analytics.entity.dictionary.Currency" scope="request"/>
-<jsp:useBean id="organizationUnit" type="com.epam.financial_analytics.entity.dictionary.OrganizationUnit" scope="request"/>
+<jsp:useBean id="startDate" type="java.sql.Date" scope="request"/>
+<jsp:useBean id="finishDate" type="java.sql.Date" scope="request"/>
+<jsp:useBean id="organizationUnit" type="java.lang.String" scope="request"/>
 <jsp:useBean id="report" type="java.util.Map" scope="request"/>
 <header class="header">
     <div class="container-fluid">
@@ -54,7 +55,7 @@
         <div class="row">
             <div class="col">
                 <p class="h4 text-center">
-                    <fmt:message key="loaded.information"/>
+                    <fmt:message key="kind.indicator"/>: ${kindOfReport}
                 </p>
             </div>
         </div>
@@ -63,72 +64,47 @@
     <br>
     <div class="container">
         <div class="col">
-            <p class="h6 text-center" ><fmt:message key="kind.indicator"/>: ${kindOfReport}</p>
+            <p class="h6 text-center" ><fmt:message key="period"/> <fmt:message key="from"/>: ${startDate} <fmt:message key="to"/>: ${finishDate} </p>
         </div>
         <div class="col">
-            <p class="h6 text-center" ><fmt:message key="date"/>: ${date}</p>
-        </div>
-        <div class="col">
-            <p class="h6 text-center" ><fmt:message key="currency"/>: ${currency.name}</p>
-        </div>
-        <div class="col">
-            <p class="h6 text-center" ><fmt:message key="organization.unit"/> ${organizationUnit.name}</p>
+            <p class="h6 text-center" ><fmt:message key="organization.unit"/>: ${organizationUnit}</p>
         </div>
         <br>
         <br>
         <div class="form-row justify-content-center">
             <div class="col-sm-4"></div>
             <table class="table table-bordered col-sm-4">
+                <thead>
+                <tr>
+                    <th><fmt:message key="january"/></th>
+                    <th><fmt:message key="february"/></th>
+                    <th><fmt:message key="march"/></th>
+                    <th><fmt:message key="april"/></th>
+                    <th><fmt:message key="may"/></th>
+                    <th><fmt:message key="june"/></th>
+                    <th><fmt:message key="july"/></th>
+                    <th><fmt:message key="august"/></th>
+                    <th><fmt:message key="september"/></th>
+                    <th><fmt:message key="october"/></th>
+                    <th><fmt:message key="november"/></th>
+                    <th><fmt:message key="december"/></th>
+                    <th><fmt:message key="total"/></th>
+                </tr>
+                </thead>
                 <tbody>
                 <tr>
-                    <td><fmt:message key="salary"/></td>
-                    <td>${report.get("Salary")}</td>
+                    <c:forEach var="reportMap" items="${report}">
+                    <td>${reportMap.value}</td>
+                    </c:forEach>
                 </tr>
-                <tr>
-                    <td><fmt:message key="factory"/></td>
-                    <td>${report.get("Factory")}</td>
-                </tr>
-                <tr>
-                    <td><fmt:message key="transport"/></td>
-                    <td>${report.get("Transport")}</td>
-                </tr>
-                <tr>
-                    <td><fmt:message key="package"/></td>
-                    <td>${report.get("Package")}</td>
-                </tr>
-                <tr>
-                    <td><fmt:message key="rent"/></td>
-                    <td>${report.get("Rent")}</td>
-                </tr>
-                <tr>
-                    <td><fmt:message key="others"/></td>
-                    <td>${report.get("Other")}</td>
-                </tr>
-                <tr>
-                    <td><fmt:message key="phone"/></td>
-                    <td>${report.get("Phone")}</td>
-                </tr>
-                <tr>
-                    <td><fmt:message key="business.trip"/></td>
-                    <td>${report.get("BusinessTrip")}</td>
-                </tr>
-                <tr>
-                    <td><fmt:message key="advertisement"/></td>
-                    <td>${report.get("Advertisement")}</td>
-                </tr>
-                <tr>
-                    <td><fmt:message key="acquiring"/></td>
-                    <td>${report.get("Acquiring")}</td>
-                </tr>
-                </tbody>
             </table>
             <div class="col-sm-4"></div>
         </div>
         <br>
         <br>
         <div class="form-row justify-content-center">
-            <div class="col-sm-4">
-                <form name="back" action="${pageContext.request.contextPath}/expense.jsp" method="post">
+            <div class="col-sm-6">
+                <form name="back" action="${pageContext.request.contextPath}/key_indicators_for_period.jsp" method="post">
                     <button type="submit" class="btn btn-outline-light btn-block"><fmt:message key="back"/></button>
                 </form>
             </div>

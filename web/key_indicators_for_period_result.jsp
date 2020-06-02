@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="language"/>
 <html>
@@ -23,14 +24,6 @@
         <div class="row">
             <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
                 <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/key_indicators_for_period_result.jsp?language=ru">RU</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/key_indicators_for_period_result.jsp?language=en">EN</a>
-                        </li>
-                    </ul>
                     <ul class="navbar-nav justify-content-end">
                         <li class="nav-item active justify-content-end">
                             <form name="main" action="${pageContext.request.contextPath}/main.jsp" method="post">
@@ -96,133 +89,55 @@
                 </tr>
                 </thead>
                 <tbody>
+
                 <tr>
                     <th><fmt:message key="karaganda"/></th>
-                    <td>${report.get("Karaganda").get[0]}</td>
-                    <td>${report.get("Karaganda").get[1]}</td>
-                    <td>${report.get("Karaganda").get[2]}</td>
-                    <td>${report.get("Karaganda").get[3]}</td>
-                    <td>${report.get("Karaganda").get[4]}</td>
-                    <td>${report.get("Karaganda").get[5]}</td>
-                    <td>${report.get("Karaganda").get[6]}</td>
-                    <td>${report.get("Karaganda").get[7]}</td>
-                    <td>${report.get("Karaganda").get[8]}</td>
-                    <td>${report.get("Karaganda").get[9]}</td>
-                    <td>${report.get("Karaganda").get[10]}</td>
-                    <td>${report.get("Karaganda").get[11]}</td>
-                    <td>${report.get("Karaganda").get[12]}</td>
+                    <c:forEach var="reportMap" items="${report.get('Karaganda')}">
+                    <td>${reportMap.value}</td>
+                    </c:forEach>
                 </tr>
+
                 <tr>
                     <th><fmt:message key="almaty"/></th>
-                    <td>${report.get("Almaty").get("0")}</td>
-                    <td>${report.get("Almaty").get("1")}</td>
-                    <td>${report.get("Almaty").get("2")}</td>
-                    <td>${report.get("Almaty").get("3")}</td>
-                    <td>${report.get("Almaty").get("4")}</td>
-                    <td>${report.get("Almaty").get("5")}</td>
-                    <td>${report.get("Almaty").get("6")}</td>
-                    <td>${report.get("Almaty").get("7")}</td>
-                    <td>${report.get("Almaty").get("8")}</td>
-                    <td>${report.get("Almaty").get("9")}</td>
-                    <td>${report.get("Almaty").get("10")}</td>
-                    <td>${report.get("Almaty").get("11")}</td>
-                    <td>${report.get("Almaty").get("12")}</td>
+                    <c:forEach var="reportMap" items="${report.get('Almaty')}">
+                        <td>${reportMap.value}</td>
+                    </c:forEach>
                 </tr>
                 <tr>
                     <th><fmt:message key="atyrau"/></th>
-                    <td>${report.get("Atyrau").get("0")}</td>
-                    <td>${report.get("Atyrau").get("1")}</td>
-                    <td>${report.get("Atyrau").get("2")}</td>
-                    <td>${report.get("Atyrau").get("3")}</td>
-                    <td>${report.get("Atyrau").get("4")}</td>
-                    <td>${report.get("Atyrau").get("5")}</td>
-                    <td>${report.get("Atyrau").get("6")}</td>
-                    <td>${report.get("Atyrau").get("7")}</td>
-                    <td>${report.get("Atyrau").get("8")}</td>
-                    <td>${report.get("Atyrau").get("9")}</td>
-                    <td>${report.get("Atyrau").get("10")}</td>
-                    <td>${report.get("Atyrau").get("11")}</td>
-                    <td>${report.get("Atyrau").get("12")}</td>
+                    <c:forEach var="reportMap" items="${report.get('Atyrau')}">
+                        <td>${reportMap.value}</td>
+                    </c:forEach>
                 </tr>
                 <tr>
                     <th><fmt:message key="astana"/></th>
-                    <td>${report.get("Astana").get("0")}</td>
-                    <td>${report.get("Astana").get("1")}</td>
-                    <td>${report.get("Astana").get("2")}</td>
-                    <td>${report.get("Astana").get("3")}</td>
-                    <td>${report.get("Astana").get("4")}</td>
-                    <td>${report.get("Astana").get("5")}</td>
-                    <td>${report.get("Astana").get("6")}</td>
-                    <td>${report.get("Astana").get("7")}</td>
-                    <td>${report.get("Astana").get("8")}</td>
-                    <td>${report.get("Astana").get("9")}</td>
-                    <td>${report.get("Astana").get("10")}</td>
-                    <td>${report.get("Astana").get("11")}</td>
-                    <th>${report.get("Astana").get("12")}</th>
+                    <c:forEach var="reportMap" items="${report.get('Astana')}">
+                        <td>${reportMap.value}</td>
+                    </c:forEach>
                 </tr>
                 <tr>
                     <th><fmt:message key="aktobe"/></th>
-                    <td>${report.get("Aktobe").get("0")}</td>
-                    <td>${report.get("Aktobe").get("1")}</td>
-                    <td>${report.get("Aktobe").get("2")}</td>
-                    <td>${report.get("Aktobe").get("3")}</td>
-                    <td>${report.get("Aktobe").get("4")}</td>
-                    <td>${report.get("Aktobe").get("5")}</td>
-                    <td>${report.get("Aktobe").get("6")}</td>
-                    <td>${report.get("Aktobe").get("7")}</td>
-                    <td>${report.get("Aktobe").get("8")}</td>
-                    <td>${report.get("Aktobe").get("9")}</td>
-                    <td>${report.get("Aktobe").get("10")}</td>
-                    <td>${report.get("Aktobe").get("11")}</td>
-                    <th>${report.get("Aktobe").get("12")}</th>
+                    <c:forEach var="reportMap" items="${report.get('Aktobe')}">
+                        <td>${reportMap.value}</td>
+                    </c:forEach>
                 </tr>
                 <tr>
                     <th><fmt:message key="oskemen"/></th>
-                    <td>${report.get("Oskemen").get("0")}</td>
-                    <td>${report.get("Oskemen").get("1")}</td>
-                    <td>${report.get("Oskemen").get("2")}</td>
-                    <td>${report.get("Oskemen").get("3")}</td>
-                    <td>${report.get("Oskemen").get("4")}</td>
-                    <td>${report.get("Oskemen").get("5")}</td>
-                    <td>${report.get("Oskemen").get("6")}</td>
-                    <td>${report.get("Oskemen").get("7")}</td>
-                    <td>${report.get("Oskemen").get("8")}</td>
-                    <td>${report.get("Oskemen").get("9")}</td>
-                    <td>${report.get("Oskemen").get("10")}</td>
-                    <td>${report.get("Oskemen").get("11")}</td>
-                    <th>${report.get("Oskemen").get("12")}</th>
+                    <c:forEach var="reportMap" items="${report.get('Oskemen')}">
+                        <td>${reportMap.value}</td>
+                    </c:forEach>
                 </tr>
                 <tr>
                     <th><fmt:message key="shymkent"/></th>
-                    <td>${report.get("Shymkent").get("0")}</td>
-                    <td>${report.get("Shymkent").get("1")}</td>
-                    <td>${report.get("Shymkent").get("2")}</td>
-                    <td>${report.get("Shymkent").get("3")}</td>
-                    <td>${report.get("Shymkent").get("4")}</td>
-                    <td>${report.get("Shymkent").get("5")}</td>
-                    <td>${report.get("Shymkent").get("6")}</td>
-                    <td>${report.get("AShymkent").get("7")}</td>
-                    <td>${report.get("Shymkent").get("8")}</td>
-                    <td>${report.get("Shymkent").get("9")}</td>
-                    <td>${report.get("Shymkent").get("10")}</td>
-                    <td>${report.get("Shymkent").get("11")}</td>
-                    <th>${report.get("Shymkent").get("12")}</th>
+                    <c:forEach var="reportMap" items="${report.get('Shymkent')}">
+                        <td>${reportMap.value}</td>
+                    </c:forEach>
                 </tr>
                 <tr>
                     <th><fmt:message key="total"/></th>
-                    <th>${report.get("total").get("0")}</th>
-                    <th>${report.get("total").get("1")}</th>
-                    <th>${report.get("total").get("2")}</th>
-                    <th>${report.get("total").get("3")}</th>
-                    <th>${report.get("total").get("4")}</th>
-                    <th>${report.get("total").get("5")}</th>
-                    <th>${report.get("total").get("6")}</th>
-                    <th>${report.get("total").get("7")}</th>
-                    <th>${report.get("Atotal").get("8")}</th>
-                    <th>${report.get("total").get("9")}</th>
-                    <th>${report.get("total").get("10")}</th>
-                    <th>${report.get("total").get("11")}</th>
-                    <th>${report.get("total").get("12")}</th>
+                    <c:forEach var="reportMap" items="${report.get('total')}">
+                        <td>${reportMap.value}</td>
+                    </c:forEach>
                 </tr>
                 </tbody>
             </table>

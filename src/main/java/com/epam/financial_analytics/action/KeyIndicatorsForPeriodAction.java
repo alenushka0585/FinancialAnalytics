@@ -86,7 +86,8 @@ public class KeyIndicatorsForPeriodAction implements Action {
             req.setAttribute(KIND_OF_REPORT, kindOfReport);
             req.setAttribute(START_DATE, startDate);
             req.setAttribute(FINISH_DATE, finishDate);
-            requestDispatcher = req.getRequestDispatcher(KEY_INDICATORS_FOR_PERIOD_RESULT_URL + JSP);
+            req.setAttribute(ORGANIZATION_UNIT, organizationUnit);
+            requestDispatcher = req.getRequestDispatcher(KEY_INDICATORS_FOR_PERIOD_WITH_ORG_UNIT_RESULT_URL + JSP);
             requestDispatcher.forward(req, resp);
         } else {
             resp.sendRedirect(RESTRICTED_URL + JSP);

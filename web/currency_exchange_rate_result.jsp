@@ -22,14 +22,6 @@
         <div class="row">
             <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
                 <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/currency_exchange_rate_result.jsp?language=ru">RU</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/currency_exchange_rate_result.jsp?language=en">EN</a>
-                        </li>
-                    </ul>
                     <ul class="navbar-nav justify-content-end">
                         <li class="nav-item active justify-content-end">
                             <form name="main" action="${pageContext.request.contextPath}/main.jsp" method="post">

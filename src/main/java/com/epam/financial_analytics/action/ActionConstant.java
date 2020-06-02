@@ -28,6 +28,7 @@ public class ActionConstant {
     public static final String UPDATE_USER_ROLE_URL = "/update_user_role";
     public static final String KEY_INDICATORS_FOR_PERIOD_URL = "/key_indicators_for_result";
     public static final String KEY_INDICATORS_FOR_PERIOD_RESULT_URL = "/key_indicators_for_period_result";
+    public static final String KEY_INDICATORS_FOR_PERIOD_WITH_ORG_UNIT_RESULT_URL = "/key_indicators_for_period_with_org_unit_result";
     public static final String JSP = ".jsp";
 
     public static final String ERROR = "error";
