@@ -8,10 +8,10 @@ import java.io.IOException;
 public class LanguageFilter implements Filter {
     public static final String LANGUAGE = "language";
     public static final String LOCAL = "local";
-    public static String EN = "en";
+    public static final String EN = "en";
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override

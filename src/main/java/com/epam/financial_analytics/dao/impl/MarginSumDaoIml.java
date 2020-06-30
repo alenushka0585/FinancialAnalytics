@@ -18,25 +18,25 @@ public class MarginSumDaoIml implements ReportWithOrganizationDao<ProductGroupSa
     private Connection connection;
     private static final Logger LOGGER = Logger.getLogger(MarginSumDaoIml.class);
 
-    private static final String INNERJOIN = "AS SS INNER JOIN ORGANIZATION_UNIT AS OU ON SS.ORGANIZATION_UNIT_ID=OU.ID " +
+    private static final String INNER_JOIN = "AS SS INNER JOIN ORGANIZATION_UNIT AS OU ON SS.ORGANIZATION_UNIT_ID=OU.ID " +
             "INNER JOIN CURRENCY AS C ON SS.CURRENCY_ID=C.ID " + "INNER JOIN PRODUCT_GROUP AS P ON SS.PRODUCT_GROUP_ID=P.ID";
     private static final String ADD_MARGIN_SUM = "INSERT INTO MARGIN_SUM (AMOUNT, DATE, ORGANIZATION_UNIT_ID, CURRENCY_ID, PRODUCT_GROUP_ID) VALUES (?,?,?,?,?)";
-    private static final String GET_ALL = "SELECT * FROM MARGIN_SUM " + INNERJOIN;
-    private static final String GET_BY_DATE = "SELECT * FROM MARGIN_SUM " + INNERJOIN + " WHERE DATE BETWEEN ? AND ?";
-    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM MARGIN_SUM " + INNERJOIN + " WHERE OU.NAME = ?";
-    private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT = "SELECT * FROM MARGIN_SUM " + INNERJOIN +
+    private static final String GET_ALL = "SELECT * FROM MARGIN_SUM " + INNER_JOIN;
+    private static final String GET_BY_DATE = "SELECT * FROM MARGIN_SUM " + INNER_JOIN + " WHERE DATE BETWEEN ? AND ?";
+    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM MARGIN_SUM " + INNER_JOIN + " WHERE OU.NAME = ?";
+    private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT = "SELECT * FROM MARGIN_SUM " + INNER_JOIN +
             " WHERE OU.NAME = ? AND DATE BETWEEN ? AND ?";
-    private static final String GET_BY_PRODUCT_GROUP = "SELECT * FROM MARGIN_SUM " + INNERJOIN + " WHERE P.NAME = ?";
-    private static final String GET_BY_DATE_AND_PRODUCT_GROUP = "SELECT * FROM MARGIN_SUM " + INNERJOIN +
+    private static final String GET_BY_PRODUCT_GROUP = "SELECT * FROM MARGIN_SUM " + INNER_JOIN + " WHERE P.NAME = ?";
+    private static final String GET_BY_DATE_AND_PRODUCT_GROUP = "SELECT * FROM MARGIN_SUM " + INNER_JOIN +
             " WHERE P.NAME = ? AND DATE BETWEEN ? AND ?";
-    private static final String GET_BY_ORGANIZATION_UNIT_AND_PRODUCT_GROUP = "SELECT * FROM MARGIN_SUM " + INNERJOIN + " WHERE OU.NAME = ? AND P.NAME = ?";
-    private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT_AND_PRODUCT_GROUP = "SELECT * FROM MARGIN_SUM " + INNERJOIN +
+    private static final String GET_BY_ORGANIZATION_UNIT_AND_PRODUCT_GROUP = "SELECT * FROM MARGIN_SUM " + INNER_JOIN + " WHERE OU.NAME = ? AND P.NAME = ?";
+    private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT_AND_PRODUCT_GROUP = "SELECT * FROM MARGIN_SUM " + INNER_JOIN +
             " WHERE OU.NAME = ? AND P.NAME = ? AND DATE BETWEEN ? AND ?";
     private static final String UPDATE_MARGIN_SUM = "UPDATE MARGIN_SUM SET AMOUNT = ? " +
             "WHERE DATE =? AND ORGANIZATION_UNIT_ID=? AND CURRENCY_ID = ? AND PRODUCT_GROUP_ID = ?";
     private static final String DELETE_MARGIN_SUM ="DELETE FROM MARGIN_SUM " +
             "WHERE DATE = ? AND ORGANIZATION_UNIT_ID = ? AND PRODUCT_GROUP_ID = ?";
-    private static final String GET_BY_NAME = "SELECT * FROM MARGIN_SUM " + INNERJOIN + " WHERE SS.NAME = ?";
+    private static final String GET_BY_NAME = "SELECT * FROM MARGIN_SUM " + INNER_JOIN + " WHERE SS.NAME = ?";
 
     @Override
     public List<ProductGroupSales> getByOrganizationUnit(String organizationUnit) {

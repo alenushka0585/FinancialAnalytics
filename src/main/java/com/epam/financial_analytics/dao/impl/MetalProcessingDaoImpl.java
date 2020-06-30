@@ -15,19 +15,19 @@ public class MetalProcessingDaoImpl implements ReportWithOrganizationDao<ReportW
     private Connection connection;
     private static final Logger LOGGER = Logger.getLogger(MetalProcessingDaoImpl.class);
 
-    private static final String INNERJOIN = "AS MP INNER JOIN ORGANIZATION_UNIT AS OU ON MP.ORGANIZATION_UNIT_ID=OU.ID";
+    private static final String INNER_JOIN = "AS MP INNER JOIN ORGANIZATION_UNIT AS OU ON MP.ORGANIZATION_UNIT_ID=OU.ID";
     private static final String ADD_METAL_PROCESSING = "INSERT INTO METAL_PROCESSING " +
             "(AMOUNT, DATE, ORGANIZATION_UNIT_ID) VALUES (?,?,?)";
-    private static final String GET_ALL = "SELECT * FROM METAL_PROCESSING " + INNERJOIN;
-    private static final String GET_BY_DATE = "SELECT * FROM METAL_PROCESSING " + INNERJOIN + " WHERE DATE BETWEEN ? AND ?";
-    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM METAL_PROCESSING " + INNERJOIN + " WHERE OU.NAME = ?";
-    private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT = "SELECT * FROM METAL_PROCESSING " + INNERJOIN +
+    private static final String GET_ALL = "SELECT * FROM METAL_PROCESSING " + INNER_JOIN;
+    private static final String GET_BY_DATE = "SELECT * FROM METAL_PROCESSING " + INNER_JOIN + " WHERE DATE BETWEEN ? AND ?";
+    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM METAL_PROCESSING " + INNER_JOIN + " WHERE OU.NAME = ?";
+    private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT = "SELECT * FROM METAL_PROCESSING " + INNER_JOIN +
             " WHERE OU.NAME = ? AND DATE BETWEEN ? AND ?";
     private static final String UPDATE_METAL_PROCESSING = "UPDATE _PROCESSING SET AMOUNT = ? " +
             "WHERE DATE = ? AND ORGANIZATION_UNIT_ID =?";
     private static final String DELETE_METAL_PROCESSING ="DELETE FROM METAL_PROCESSING " +
             "WHERE DATE = ? AND ORGANIZATION_UNIT_ID = ?";
-    private static final String GET_BY_NAME = "SELECT * FROM METAL_PROCESSING " + INNERJOIN + " WHERE MP.NAME = ?";
+    private static final String GET_BY_NAME = "SELECT * FROM METAL_PROCESSING " + INNER_JOIN + " WHERE MP.NAME = ?";
 
     @Override
     public List<ReportWithOrganization> getByOrganizationUnit(String organizationUnit) {

@@ -16,19 +16,19 @@ public class RevenueDaoImpl implements ReportWithOrganizationDao<ReportWithOrgan
     private Connection connection;
     private static final Logger LOGGER = Logger.getLogger(RevenueDaoImpl.class);
 
-    private static final String INNERJOIN = "AS R INNER JOIN ORGANIZATION_UNIT AS OU ON R.ORGANIZATION_UNIT_ID=OU.ID " +
+    private static final String INNER_JOIN = "AS R INNER JOIN ORGANIZATION_UNIT AS OU ON R.ORGANIZATION_UNIT_ID=OU.ID " +
             "INNER JOIN CURRENCY AS C ON R.CURRENCY_ID=C.ID";
     private static final String ADD_REVENUE = "INSERT INTO REVENUE " +
             "(AMOUNT, DATE, ORGANIZATION_UNIT_ID, CURRENCY_ID) VALUES (?,?,?,?)";
-    private static final String GET_ALL = "SELECT * FROM REVENUE " + INNERJOIN;
-    private static final String GET_BY_DATE = "SELECT * FROM REVENUE " + INNERJOIN + " WHERE DATE BETWEEN ? AND ?";
-    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM REVENUE " + INNERJOIN + " WHERE OU.NAME=?";
-    private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT = "SELECT * FROM REVENUE " + INNERJOIN +
+    private static final String GET_ALL = "SELECT * FROM REVENUE " + INNER_JOIN;
+    private static final String GET_BY_DATE = "SELECT * FROM REVENUE " + INNER_JOIN + " WHERE DATE BETWEEN ? AND ?";
+    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM REVENUE " + INNER_JOIN + " WHERE OU.NAME=?";
+    private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT = "SELECT * FROM REVENUE " + INNER_JOIN +
             " WHERE OU.NAME = ? AND DATE BETWEEN ? AND ?";
     private static final String UPDATE_REVENUE = "UPDATE REVENUE SET AMOUNT = ? " +
             "WHERE DATE = ? AND ORGANIZATION_UNIT_ID = ? AND CURRENCY_ID = ?";
     private static final String DELETE_REVENUE ="DELETE FROM REVENUE WHERE DATE = ? AND ORGANIZATION_UNIT_ID = ?";
-    private static final String GET_BY_NAME = "SELECT * FROM REVENUE " + INNERJOIN + " WHERE R.NAME = ?";
+    private static final String GET_BY_NAME = "SELECT * FROM REVENUE " + INNER_JOIN + " WHERE R.NAME = ?";
 
     @Override
     public List<ReportWithOrganizationAndCurrency> getByOrganizationUnit(String organizationUnit) {

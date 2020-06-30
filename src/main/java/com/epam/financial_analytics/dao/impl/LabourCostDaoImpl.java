@@ -16,19 +16,19 @@ public class LabourCostDaoImpl implements ReportWithOrganizationDao<ReportWithOr
     private Connection connection;
     private static final Logger LOGGER = Logger.getLogger(LabourCostDaoImpl.class);
 
-    private static final String INNERJOIN = "AS LC INNER JOIN ORGANIZATION_UNIT AS OU ON LC.ORGANIZATION_UNIT_ID=OU.ID " +
+    private static final String INNER_JOIN = "AS LC INNER JOIN ORGANIZATION_UNIT AS OU ON LC.ORGANIZATION_UNIT_ID=OU.ID " +
             "INNER JOIN CURRENCY AS C ON LC.CURRENCY_ID=C.ID";
     private static final String ADD_LABOUR_COST = "INSERT INTO LABOUR_COST (AMOUNT, DATE, ORGANIZATION_UNIT_ID, CURRENCY_ID) VALUES (?,?,?,?)";
-    private static final String GET_ALL = "SELECT * FROM LABOUR_COST " + INNERJOIN;
-    private static final String GET_BY_DATE = "SELECT * FROM LABOUR_COST " + INNERJOIN + " WHERE DATE BETWEEN ? AND ?";
-    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM LABOUR_COST " + INNERJOIN + " WHERE OU.NAME = ?";
-    private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT = "SELECT * FROM LABOUR_COST " + INNERJOIN +
+    private static final String GET_ALL = "SELECT * FROM LABOUR_COST " + INNER_JOIN;
+    private static final String GET_BY_DATE = "SELECT * FROM LABOUR_COST " + INNER_JOIN + " WHERE DATE BETWEEN ? AND ?";
+    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM LABOUR_COST " + INNER_JOIN + " WHERE OU.NAME = ?";
+    private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT = "SELECT * FROM LABOUR_COST " + INNER_JOIN +
             " WHERE OU.NAME = ? AND DATE BETWEEN ? AND ?";
     private static final String UPDATE_LABOUR_COST = "UPDATE LABOUR_COST SET AMOUNT = ? " +
             "WHERE DATE =? AND ORGANIZATION_UNIT_ID=? AND CURRENCY_ID = ?";
     private static final String DELETE_LABOUR_COST ="DELETE FROM LABOUR_COST " +
             "WHERE DATE = ? AND ORGANIZATION_UNIT_ID = ?";
-    private static final String GET_BY_NAME = "SELECT * FROM LABOUR_COST " + INNERJOIN + " WHERE LC.NAME = ?";
+    private static final String GET_BY_NAME = "SELECT * FROM LABOUR_COST " + INNER_JOIN + " WHERE LC.NAME = ?";
 
     @Override
     public List<ReportWithOrganizationAndCurrency> getByOrganizationUnit(String organizationUnit) {
@@ -140,7 +140,7 @@ public class LabourCostDaoImpl implements ReportWithOrganizationDao<ReportWithOr
                     labourCost.setDate(resultSet.getDate("DATE"));
                     labourCost.setOrganizationUnit(new OrganizationUnit(resultSet.getLong("ORGANIZATION_UNIT_ID"), resultSet.getString("OU.NAME")));
                     labourCost.setCurrency(new Currency(resultSet.getLong("CURRENCY_ID"), resultSet.getString("C.NAME")));
-                    labourCost.setAmount(resultSet.getLong("AMOUT"));
+                    labourCost.setAmount(resultSet.getLong("AMOUNT"));
                 }
             }
         } catch (SQLException e) {

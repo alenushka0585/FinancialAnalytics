@@ -7,8 +7,8 @@ import com.epam.financial_analytics.util.IndicatorUtil;
 import java.sql.Date;
 
 public class LabourCostOnTonIndicator extends Indicator implements Fillable {
-    private LabourCostIndicator labourCostIndicator;
-    private SalesOfTonsIndicator salesOfTonsIndicator;
+    private final LabourCostIndicator labourCostIndicator;
+    private final SalesOfTonsIndicator salesOfTonsIndicator;
 
     public LabourCostOnTonIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                                     Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

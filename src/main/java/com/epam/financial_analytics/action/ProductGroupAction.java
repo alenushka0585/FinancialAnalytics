@@ -22,16 +22,16 @@ public class ProductGroupAction implements Action {
     public static final String MARGIN_SUM = "marginSum";
     public static final String VALUE_ADDED_SUM = "valueAddedSum";
 
-    private ProductGroupDaoImpl productGroupDao = new ProductGroupDaoImpl();
-    private SalesSumDaoIml salesSumDaoIml = new SalesSumDaoIml();
-    private MarginSumDaoIml marginSumDaoIml = new MarginSumDaoIml();
-    private ValueAddedTaxSumDaoIml valueAddedTaxSumDaoIml = new ValueAddedTaxSumDaoIml();
-    private OrganizationUnitDaoImpl organizationUnitDao = new OrganizationUnitDaoImpl();
-    private CurrencyDaoImpl currencyDao = new CurrencyDaoImpl();
+    private final ProductGroupDaoImpl productGroupDao = new ProductGroupDaoImpl();
+    private final SalesSumDaoIml salesSumDaoIml = new SalesSumDaoIml();
+    private final MarginSumDaoIml marginSumDaoIml = new MarginSumDaoIml();
+    private final ValueAddedTaxSumDaoIml valueAddedTaxSumDaoIml = new ValueAddedTaxSumDaoIml();
+    private final OrganizationUnitDaoImpl organizationUnitDao = new OrganizationUnitDaoImpl();
+    private final CurrencyDaoImpl currencyDao = new CurrencyDaoImpl();
     RequestDispatcher requestDispatcher;
-    private Map<String, Long> salesSumMap = new HashMap<>();
-    private Map<String, Long> marginSumMap = new HashMap<>();
-    private Map<String, Long> valueAddedSumMap = new HashMap<>();
+    private final Map<String, Long> salesSumMap = new HashMap<>();
+    private final Map<String, Long> marginSumMap = new HashMap<>();
+    private final Map<String, Long> valueAddedSumMap = new HashMap<>();
 
 
     @Override

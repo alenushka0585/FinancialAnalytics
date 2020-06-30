@@ -101,10 +101,6 @@
                 <form name="productGroupIndicatorForPeriod" action="${pageContext.request.contextPath}/product_group_for_period.jsp" method="post">
                     <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="product.group.for.period" /></button>
                 </form>
-                <form name="currencyExchangeRateForThePeriod" action="${pageContext.request.contextPath}/currency_exchange_rate.jsp" method="post">
-                    <button type="submit" class="btn btn-outline-dark  btn-rounded-small"><fmt:message key="currency.exchange.rate" />
-                    </button>
-                </form>
             </div>
         </div>
     </div>

@@ -16,30 +16,30 @@ public class ExpenseInfoDaoImpl implements ExpenseInfoDao<ExpenseInfo>, ReportWi
     private Connection connection;
     private static final Logger LOGGER = Logger.getLogger(ExpenseInfoDaoImpl.class);
 
-    private static final String INNERJOIN = "AS EI INNER JOIN ORGANIZATION_UNIT AS OU ON EI.ORGANIZATION_UNIT_ID=OU.ID " +
+    private static final String INNER_JOIN = "AS EI INNER JOIN ORGANIZATION_UNIT AS OU ON EI.ORGANIZATION_UNIT_ID=OU.ID " +
             "INNER JOIN EXPENSE_TYPE AS ET ON EI.EXPENSE_TYPE_ID=ET.ID " +
             "INNER JOIN CURRENCY AS C ON EI.CURRENCY_ID=C.ID";
 
     private static final String ADD_EXPENSE_INFO = "INSERT INTO EXPENSE_INFO " +
             "(AMOUNT, DATE, ORGANIZATION_UNIT_ID, EXPENSE_TYPE_ID, CURRENCY_ID) VALUES (?,?,?,?,?)";
-    private static final String GET_ALL = "SELECT * FROM EXPENSE_INFO " + INNERJOIN;
-    private static final String GET_BY_DATE = "SELECT * FROM EXPENSE_INFO " + INNERJOIN + " WHERE DATE BETWEEN ? AND ?";
-    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM EXPENSE_INFO  " + INNERJOIN +
+    private static final String GET_ALL = "SELECT * FROM EXPENSE_INFO " + INNER_JOIN;
+    private static final String GET_BY_DATE = "SELECT * FROM EXPENSE_INFO " + INNER_JOIN + " WHERE DATE BETWEEN ? AND ?";
+    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM EXPENSE_INFO  " + INNER_JOIN +
             " WHERE OU.NAME=?";
-    private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT = "SELECT * FROM EXPENSE_INFO  " + INNERJOIN +
+    private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT = "SELECT * FROM EXPENSE_INFO  " + INNER_JOIN +
             " WHERE OU.NAME = ? AND DATE BETWEEN ? AND ?";
     private static final String UPDATE_EXPENSE_INFO = "UPDATE EXPENSE_INFO SET AMOUNT = ? " +
             "WHERE DATE =? AND ORGANIZATION_UNIT_ID=? AND EXPENSE_TYPE_ID=? AND CURRENCY_ID = ?";
     private static final String DELETE_EXPENSE_INFO ="DELETE FROM EXPENSE_INFO " +
             "WHERE DATE = ? AND ORGANIZATION_UNIT_ID=? AND EXPENSE_TYPE_ID=?";
-    private static final String GET_BY_EXPENSE = "SELECT * FROM EXPENSE_INFO  " + INNERJOIN + " WHERE ET.NAME=?";
-    private static final String GET_BY_DATE_AND_EXPENSE = "SELECT * FROM EXPENSE_INFO  " + INNERJOIN +
+    private static final String GET_BY_EXPENSE = "SELECT * FROM EXPENSE_INFO  " + INNER_JOIN + " WHERE ET.NAME=?";
+    private static final String GET_BY_DATE_AND_EXPENSE = "SELECT * FROM EXPENSE_INFO  " + INNER_JOIN +
             " WHERE ET.NAME = ? AND DATE BETWEEN ? AND ?";
-    private static final String GET_BY_ORGANIZATION_UNIT_AND_EXPENSE = "SELECT * FROM EXPENSE_INFO " +  INNERJOIN +
+    private static final String GET_BY_ORGANIZATION_UNIT_AND_EXPENSE = "SELECT * FROM EXPENSE_INFO " + INNER_JOIN +
             " WHERE OU.NAME=? AND ET.NAME=?";
     private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT_AND_EXPENSE = "SELECT * FROM EXPENSE_INFO  "
-            + INNERJOIN + " WHERE OU.NAME = ? AND ET.NAME =? AND DATE BETWEEN ? AND ?";
-    private static final String GET_BY_NAME = "SELECT * FROM EXPENSE_INFO  " + INNERJOIN + " WHERE EI.NAME = ?";
+            + INNER_JOIN + " WHERE OU.NAME = ? AND ET.NAME =? AND DATE BETWEEN ? AND ?";
+    private static final String GET_BY_NAME = "SELECT * FROM EXPENSE_INFO  " + INNER_JOIN + " WHERE EI.NAME = ?";
 
     @Override
     public List<ExpenseInfo> getByDate(Date startDate, Date finishDate) {

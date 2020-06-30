@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 public class TotalExpenseIndicator extends Indicator implements Fillable {
-    private ExpenseTypeDaoImpl expenseTypeDao = new ExpenseTypeDaoImpl();
-    private Map<String, ExpenseIndicator> expenseInfoMap = new HashMap<>();
-    private List<ExpenseType> expenseTypeList;
+    private final ExpenseTypeDaoImpl expenseTypeDao = new ExpenseTypeDaoImpl();
+    private final Map<String, ExpenseIndicator> expenseInfoMap = new HashMap<>();
+    private final List<ExpenseType> expenseTypeList;
 
     public TotalExpenseIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                                  Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

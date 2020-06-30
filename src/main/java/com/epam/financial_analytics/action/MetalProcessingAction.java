@@ -18,8 +18,8 @@ import java.sql.Date;
 import static com.epam.financial_analytics.action.ActionConstant.*;
 
 public class MetalProcessingAction implements Action {
-    private MetalProcessingDaoImpl dao = new MetalProcessingDaoImpl();
-    private OrganizationUnitDaoImpl organizationUnitDao = new OrganizationUnitDaoImpl();
+    private final MetalProcessingDaoImpl dao = new MetalProcessingDaoImpl();
+    private final OrganizationUnitDaoImpl organizationUnitDao = new OrganizationUnitDaoImpl();
     RequestDispatcher requestDispatcher;
 
     @Override

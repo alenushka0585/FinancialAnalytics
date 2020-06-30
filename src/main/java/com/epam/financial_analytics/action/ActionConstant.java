@@ -1,10 +1,10 @@
 package com.epam.financial_analytics.action;
 
 public class ActionConstant {
-    public static final String LOGINPAGE_URL = "/login";
+    public static final String LOGIN_PAGE_URL = "/login";
     public static final String LOGOUT_URL = "/logout";
     public static final String INDEX_URL = "/index";
-    public static final String MAINPAGE_URL = "/main";
+    public static final String MAIN_PAGE_URL = "/main";
     public static final String ANALYTICS_URL = "/analytics";
     public static final String BASIC_INDICATOR_URL = "/basic_indicator";
     public static final String ANALYTICS_RESULT_URL = "/analytics_result";
@@ -26,9 +26,14 @@ public class ActionConstant {
     public static final String UPDATE_USER_NAME_URL = "/update_user_name";
     public static final String UPDATE_USER_PASSWORD_URL = "/update_user_password";
     public static final String UPDATE_USER_ROLE_URL = "/update_user_role";
-    public static final String KEY_INDICATORS_FOR_PERIOD_URL = "/key_indicators_for_result";
+    public static final String KEY_INDICATORS_FOR_PERIOD_URL = "/key_indicators_for_period";
     public static final String KEY_INDICATORS_FOR_PERIOD_RESULT_URL = "/key_indicators_for_period_result";
-    public static final String KEY_INDICATORS_FOR_PERIOD_WITH_ORG_UNIT_RESULT_URL = "/key_indicators_for_period_with_org_unit_result";
+    public static final String KEY_INDICATORS_FOR_PERIOD_WITH_ORG_UNIT_RESULT_URL =
+            "/key_indicators_for_period_with_org_unit_result";
+    public static final String PRODUCT_GROUP_FOR_PERIOD_URL = "/product_group_for_period";
+    public static final String PRODUCT_GROUP_FOR_PERIOD_RESULT_URL = "/product_group_for_period_result";
+    public static final String EXPENSE_FOR_PERIOD_URL = "/expense_for_period";
+    public static final String EXPENSE_FOR_PERIOD_RESULT_URL = "/expense_for_period_result";
     public static final String JSP = ".jsp";
 
     public static final String ERROR = "error";
@@ -75,7 +80,7 @@ public class ActionConstant {
     public static final String AMOUNT_ALMATY = "amountAlmaty";
 
     public static final int FIRST_INDEX= 0;
-    public static String TOTAl = "total";
+    public static final String TOTAl = "total";
 
     public static final String CURRENCY_KZT = "KZT";
     public static final String CURRENCY_USD = "USD";

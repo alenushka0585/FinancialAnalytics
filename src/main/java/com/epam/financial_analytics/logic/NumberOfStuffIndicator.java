@@ -9,7 +9,7 @@ import java.sql.Date;
 
 public class NumberOfStuffIndicator extends Indicator implements Fillable {
 
-    private NumberOfStuffDaoImpl numberOfStuffDao = new NumberOfStuffDaoImpl();
+    private final NumberOfStuffDaoImpl numberOfStuffDao = new NumberOfStuffDaoImpl();
 
     public NumberOfStuffIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                                   Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

@@ -10,9 +10,9 @@ import com.epam.financial_analytics.util.IndicatorUtil;
 import java.sql.Date;
 
 public class MarginIndicator extends Indicator implements FillableWithProductGroup {
-    private SalesSumDaoIml salesSumDaoIml = new SalesSumDaoIml();
-    private MarginSumDaoIml marginSumDaoIml = new MarginSumDaoIml();
-    private ValueAddedTaxSumDaoIml valueAddedTaxSumDaoIml = new ValueAddedTaxSumDaoIml();
+    private final SalesSumDaoIml salesSumDaoIml = new SalesSumDaoIml();
+    private final MarginSumDaoIml marginSumDaoIml = new MarginSumDaoIml();
+    private final ValueAddedTaxSumDaoIml valueAddedTaxSumDaoIml = new ValueAddedTaxSumDaoIml();
 
     public MarginIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                            Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

@@ -18,10 +18,10 @@ import java.util.*;
 import static com.epam.financial_analytics.action.ActionConstant.*;
 
 public class CurrencyExchangeRateAction implements Action {
-    private CurrencyExchangeRateDaoImpl dao = new CurrencyExchangeRateDaoImpl();
-    private CurrencyDaoImpl currencyDao = new CurrencyDaoImpl();
+    private final CurrencyExchangeRateDaoImpl dao = new CurrencyExchangeRateDaoImpl();
+    private final CurrencyDaoImpl currencyDao = new CurrencyDaoImpl();
     RequestDispatcher requestDispatcher;
-    private Map<String, Double> currencyRateMap = new HashMap<>();
+    private final Map<String, Double> currencyRateMap = new HashMap<>();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

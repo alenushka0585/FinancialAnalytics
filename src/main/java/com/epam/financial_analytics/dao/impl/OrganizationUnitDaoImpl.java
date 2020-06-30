@@ -39,7 +39,7 @@ public class OrganizationUnitDaoImpl implements BaseDao<OrganizationUnit> {
                 organizationUnitList.add(organizationUnit);
             }
         } catch (SQLException e) {
-            LOGGER.error("SQLException in OrganizationUnitDaoImlp getAll", e);
+            LOGGER.error("SQLException in OrganizationUnitDaoImpl getAll", e);
         } finally {
             connectionPool.returnConnection(connection);
         }
@@ -62,7 +62,7 @@ public class OrganizationUnitDaoImpl implements BaseDao<OrganizationUnit> {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error("SQLException in OrganizationUnitDaoImlp getById", e);
+            LOGGER.error("SQLException in OrganizationUnitDaoImpl getById", e);
         } finally {
             connectionPool.returnConnection(connection);
         }
@@ -91,7 +91,7 @@ public class OrganizationUnitDaoImpl implements BaseDao<OrganizationUnit> {
             preparedStatement.setLong(1, organizationUnit.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error("SQLException in OrganizationUnitDaoImlp delete", e);
+            LOGGER.error("SQLException in OrganizationUnitDaoImpl delete", e);
         } finally {
             connectionPool.returnConnection(connection);
         }
@@ -108,7 +108,7 @@ public class OrganizationUnitDaoImpl implements BaseDao<OrganizationUnit> {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error("SQLException in OrganizationUnitDaoImlp updateOrCreate", e);
+            LOGGER.error("SQLException in OrganizationUnitDaoImpl  updateOrCreate", e);
         } finally {
             connectionPool.returnConnection(connection);
         }

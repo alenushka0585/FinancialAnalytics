@@ -7,8 +7,8 @@ import com.epam.financial_analytics.util.IndicatorUtil;
 import java.sql.Date;
 
 public class MarginOnTonsIndicator extends Indicator implements Fillable {
-    private TotalMarginIndicator totalMarginIndicator;
-    private SalesOfTonsIndicator salesOfTonsIndicator;
+    private final TotalMarginIndicator totalMarginIndicator;
+    private final SalesOfTonsIndicator salesOfTonsIndicator;
 
     public MarginOnTonsIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                                  Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

@@ -8,7 +8,7 @@ public class TimeZoneFilter implements Filter {
     private String timeZone;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         timeZone = filterConfig.getInitParameter("timeZone");
 
         if (timeZone == null){

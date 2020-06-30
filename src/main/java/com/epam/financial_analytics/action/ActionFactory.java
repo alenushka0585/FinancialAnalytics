@@ -11,7 +11,7 @@ public class ActionFactory {
 
     static {
         ACTION_MAP.put(ANALYTICS_URL, new AnalyticsAction());
-        ACTION_MAP.put(LOGINPAGE_URL, new LoginAction());
+        ACTION_MAP.put(LOGIN_PAGE_URL, new LoginAction());
         ACTION_MAP.put(LOGOUT_URL, new LogoutAction());
         ACTION_MAP.put(ERROR, new LoginAction());
         ACTION_MAP.put(BASIC_INDICATOR_URL, new BasicIndicatorAction());
@@ -25,6 +25,8 @@ public class ActionFactory {
         ACTION_MAP.put(UPDATE_USER_NAME_URL, new UpdateUserNameAction());
         ACTION_MAP.put(UPDATE_USER_ROLE_URL, new UpdateUserRoleAction());
         ACTION_MAP.put(KEY_INDICATORS_FOR_PERIOD_URL, new KeyIndicatorsForPeriodAction());
+        ACTION_MAP.put(PRODUCT_GROUP_FOR_PERIOD_URL, new ProductGroupForPeriodAction());
+        ACTION_MAP.put(EXPENSE_FOR_PERIOD_URL, new ExpenseForPeriodAction());
     }
 
     private ActionFactory(){}

@@ -20,15 +20,14 @@ import java.sql.Date;
 import java.util.*;
 
 import static com.epam.financial_analytics.action.ActionConstant.*;
-import static com.epam.financial_analytics.action.ActionConstant.JSP;
 
 public class ExpenseAction implements Action {
-    private ExpenseTypeDaoImpl expenseType = new ExpenseTypeDaoImpl();
-    private ExpenseInfoDaoImpl dao =  new ExpenseInfoDaoImpl();
-    private OrganizationUnitDaoImpl organizationUnitDao = new OrganizationUnitDaoImpl();
-    private CurrencyDaoImpl currencyDao = new CurrencyDaoImpl();
+    private final ExpenseTypeDaoImpl expenseType = new ExpenseTypeDaoImpl();
+    private final ExpenseInfoDaoImpl dao =  new ExpenseInfoDaoImpl();
+    private final OrganizationUnitDaoImpl organizationUnitDao = new OrganizationUnitDaoImpl();
+    private final CurrencyDaoImpl currencyDao = new CurrencyDaoImpl();
     RequestDispatcher requestDispatcher;
-    private Map<String, Long> expenseInfoMap = new HashMap<>();
+    private final Map<String, Long> expenseInfoMap = new HashMap<>();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

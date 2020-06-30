@@ -15,19 +15,19 @@ public class NumberOfStuffDaoImpl implements ReportWithOrganizationDao<ReportWit
     private Connection connection;
     private static final Logger LOGGER = Logger.getLogger(NumberOfStuffDaoImpl.class);
 
-    private static final String INNERJOIN = "AS NS INNER JOIN ORGANIZATION_UNIT AS OU ON NS.ORGANIZATION_UNIT_ID=OU.ID";
+    private static final String INNER_JOIN = "AS NS INNER JOIN ORGANIZATION_UNIT AS OU ON NS.ORGANIZATION_UNIT_ID=OU.ID";
     private static final String ADD_NUMBER_OF_STUFF = "INSERT INTO NUMBER_OF_STUFF " +
             "(AMOUNT, DATE, ORGANIZATION_UNIT_ID) VALUES (?,?,?)";
-    private static final String GET_ALL = "SELECT * FROM NUMBER_OF_STUFF " + INNERJOIN;
-    private static final String GET_BY_DATE = "SELECT * FROM NUMBER_OF_STUFF "+ INNERJOIN + " WHERE DATE BETWEEN ? AND ?";
-    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM NUMBER_OF_STUFF " + INNERJOIN + " WHERE OU.NAME = ?";
+    private static final String GET_ALL = "SELECT * FROM NUMBER_OF_STUFF " + INNER_JOIN;
+    private static final String GET_BY_DATE = "SELECT * FROM NUMBER_OF_STUFF "+ INNER_JOIN + " WHERE DATE BETWEEN ? AND ?";
+    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM NUMBER_OF_STUFF " + INNER_JOIN + " WHERE OU.NAME = ?";
     private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT = "SELECT * FROM " +
-            "NUMBER_OF_STUFF " + INNERJOIN + " WHERE OU.NAME = ? AND DATE BETWEEN ? AND ?";
+            "NUMBER_OF_STUFF " + INNER_JOIN + " WHERE OU.NAME = ? AND DATE BETWEEN ? AND ?";
     private static final String UPDATE_NUMBER_OF_STUFF = "UPDATE NUMBER_OF_STUFF " +
             "SET AMOUNT = ? WHERE DATE = ? AND ORGANIZATION_UNIT_ID=?";
     private static final String DELETE_NUMBER_OF_STUFF ="DELETE FROM NUMBER_OF_STUFF " +
             "WHERE DATE =? AND ORGANIZATION_UNIT_ID=?";
-    private static final String GET_BY_NAME = "SELECT * FROM NUMBER_OF_STUFF " + INNERJOIN + " WHERE NS.NAME = ?";
+    private static final String GET_BY_NAME = "SELECT * FROM NUMBER_OF_STUFF " + INNER_JOIN + " WHERE NS.NAME = ?";
 
     @Override
     public List<ReportWithOrganization> getByOrganizationUnit(String organizationUnit) {

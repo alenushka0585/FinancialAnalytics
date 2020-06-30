@@ -70,8 +70,8 @@ public class IndicatorUtil {
     }
 
     public static List<Report> fillIndicatorSumListWithOrganizationUnitAndExpenseType
-            (ExpenseInfoDao dao, Date startDate, Date finishDate, String organizationUnitName, String expeneType) {
-        List<Report>  list = dao.getByDateAndOrganizationUnitAndExpense(startDate, finishDate, organizationUnitName, expeneType);
+            (ExpenseInfoDao dao, Date startDate, Date finishDate, String organizationUnitName, String expenseType) {
+        List<Report>  list = dao.getByDateAndOrganizationUnitAndExpense(startDate, finishDate, organizationUnitName, expenseType);
         list.sort(Report.dateSort);
         return list;
     }
@@ -157,11 +157,4 @@ public class IndicatorUtil {
         return changingOfIndicatorInPercent;
     }
 
-    public static long fillTotalIndicator(long ... indicators){
-        long total = 0L;
-        for (long indicator : indicators){
-            total+=indicator;
-        }
-        return total;
-    }
 }

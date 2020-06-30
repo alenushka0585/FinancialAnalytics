@@ -15,19 +15,19 @@ public class SalesOfTonsDaoImpl implements ReportWithOrganizationDao<ReportWithO
     private Connection connection;
     private static final Logger LOGGER = Logger.getLogger(SalesOfTonsDaoImpl.class);
 
-    private static final String INNERJOIN = "AS NS INNER JOIN ORGANIZATION_UNIT AS OU ON NS.ORGANIZATION_UNIT_ID=OU.ID";
+    private static final String INNER_JOIN = "AS NS INNER JOIN ORGANIZATION_UNIT AS OU ON NS.ORGANIZATION_UNIT_ID=OU.ID";
     private static final String ADD_SALES_OF_TONS = "INSERT INTO SALES_OF_TONS " +
             "(AMOUNT, DATE, ORGANIZATION_UNIT_ID) VALUES (?,?,?)";
-    private static final String GET_ALL = "SELECT * FROM SALES_OF_TONS " + INNERJOIN;
-    private static final String GET_BY_DATE = "SELECT * FROM SALES_OF_TONS "+ INNERJOIN + " WHERE DATE BETWEEN ? AND ?";
-    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM SALES_OF_TONS " + INNERJOIN + " WHERE OU.NAME = ?";
+    private static final String GET_ALL = "SELECT * FROM SALES_OF_TONS " + INNER_JOIN;
+    private static final String GET_BY_DATE = "SELECT * FROM SALES_OF_TONS "+ INNER_JOIN + " WHERE DATE BETWEEN ? AND ?";
+    private static final String GET_BY_ORGANIZATION_UNIT = "SELECT * FROM SALES_OF_TONS " + INNER_JOIN + " WHERE OU.NAME = ?";
     private static final String GET_BY_DATE_AND_ORGANIZATION_UNIT = "SELECT * FROM " +
-            "SALES_OF_TONS " + INNERJOIN + " WHERE OU.NAME = ? AND DATE BETWEEN ? AND ?";
+            "SALES_OF_TONS " + INNER_JOIN + " WHERE OU.NAME = ? AND DATE BETWEEN ? AND ?";
     private static final String UPDATE_SALES_OF_TONS = "UPDATE SALES_OF_TONS " +
             "SET AMOUNT = ? WHERE DATE = ? AND ORGANIZATION_UNIT_ID=?";
     private static final String DELETE_SALES_OF_TONS ="DELETE FROM SALES_OF_TONS " +
             "WHERE DATE =? AND ORGANIZATION_UNIT_ID=?";
-    private static final String GET_BY_NAME = "SELECT * FROM SALES_OF_TONS " + INNERJOIN + " WHERE NS.NAME = ?";
+    private static final String GET_BY_NAME = "SELECT * FROM SALES_OF_TONS " + INNER_JOIN + " WHERE NS.NAME = ?";
 
     @Override
     public List<ReportWithOrganization> getByOrganizationUnit(String organizationUnit) {

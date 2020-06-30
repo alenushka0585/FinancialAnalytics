@@ -7,9 +7,9 @@ import com.epam.financial_analytics.util.IndicatorUtil;
 import java.sql.Date;
 
 public class ProfitabilityIndicator extends Indicator implements FillableWithProductGroup {
-    private SalesIndicator salesIndicator;
-    private ValueAddedTaxIndicator valueAddedTaxIndicator;
-    private MarginIndicator marginIndicator;
+    private final SalesIndicator salesIndicator;
+    private final ValueAddedTaxIndicator valueAddedTaxIndicator;
+    private final MarginIndicator marginIndicator;
 
     public ProfitabilityIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                                      Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

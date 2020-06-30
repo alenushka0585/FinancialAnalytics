@@ -8,7 +8,7 @@ import com.epam.financial_analytics.util.IndicatorUtil;
 import java.sql.Date;
 
 public class ValueAddedTaxIndicator extends Indicator implements FillableWithProductGroup {
-    private ValueAddedTaxSumDaoIml valueAddedTaxSumDaoIml = new ValueAddedTaxSumDaoIml();
+    private final ValueAddedTaxSumDaoIml valueAddedTaxSumDaoIml = new ValueAddedTaxSumDaoIml();
 
     public ValueAddedTaxIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                                   Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

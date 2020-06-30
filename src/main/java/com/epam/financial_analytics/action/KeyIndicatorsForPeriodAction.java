@@ -26,11 +26,11 @@ import static com.epam.financial_analytics.action.ActionConstant.*;
 public class KeyIndicatorsForPeriodAction implements Action {
     private RequestDispatcher requestDispatcher;
     private ReportWithOrganizationDao dao;
-    private OrganizationUnitDaoImpl organizationUnitDao = new OrganizationUnitDaoImpl();
-    private CurrencyExchangeRateDaoImpl currencyExchangeRateDao = new CurrencyExchangeRateDaoImpl();
+    private final OrganizationUnitDaoImpl organizationUnitDao = new OrganizationUnitDaoImpl();
+    private final CurrencyExchangeRateDaoImpl currencyExchangeRateDao = new CurrencyExchangeRateDaoImpl();
     private List<CurrencyExchangeRate> currencyExchangeRateList;
     private Map<Integer, Long> reportMap = new HashMap<>();
-    private Map<String, Map<Integer,Long>> totalReportMap = new HashMap<>();
+    private final Map<String, Map<Integer,Long>> totalReportMap = new HashMap<>();
     private List<Report> reportList;
     private List<OrganizationUnit> organizationUnitList;
 
@@ -44,6 +44,10 @@ public class KeyIndicatorsForPeriodAction implements Action {
         String kindOfReport = req.getParameter(KIND_OF_REPORT);
         dao = ActionUtil.getDao(kindOfReport);
 
+        boolean numberOfStuffAndSalesOfSquareMatresAndTons =
+                kindOfReport.equals(NUMBER_OF_STUFF) || kindOfReport.equals(SALES_OF_SQUARE_METRES) || kindOfReport.equals(SALES_OF_TONS);
+
+
         currencyExchangeRateList = currencyExchangeRateDao.getByCurrencyAndDate(currency, startDate, finishDate);
 
         HttpSession session = req.getSession();
@@ -56,7 +60,7 @@ public class KeyIndicatorsForPeriodAction implements Action {
             for (OrganizationUnit orgUnit : organizationUnitList){
                 reportList = IndicatorUtil.fillIndicatorSumListWithOrganizationUnit(dao, startDate, finishDate, orgUnit.getName());
 
-                if (kindOfReport.equals(NUMBER_OF_STUFF) || kindOfReport.equals(SALES_OF_SQUARE_METRES) || kindOfReport.equals(SALES_OF_TONS)) {
+                if (numberOfStuffAndSalesOfSquareMatresAndTons) {
                     reportMap = ActionUtil.getMap(reportList);
                 } else {
                     reportMap = ActionUtil.getMapWithCurrency(reportList, currencyExchangeRateList, currency);
@@ -64,7 +68,7 @@ public class KeyIndicatorsForPeriodAction implements Action {
                 totalReportMap.put(orgUnit.getName(), reportMap);
             }
 
-            totalReportMap.put(TOTAl, ActionUtil.getTotalMap(totalReportMap, organizationUnitList));
+            totalReportMap.put(TOTAl, ActionUtil.getTotalMapForOrganizationUnit(totalReportMap, organizationUnitList));
 
             req.setAttribute(REPORT, totalReportMap);
             req.setAttribute(KIND_OF_REPORT, kindOfReport);
@@ -76,7 +80,7 @@ public class KeyIndicatorsForPeriodAction implements Action {
         } else if (role.contains(organizationUnit) || role.equals(ADMIN) || role.equals(DIRECTOR)){
             reportList = IndicatorUtil.fillIndicatorSumListWithOrganizationUnit(dao, startDate, finishDate, organizationUnit);
 
-            if (kindOfReport.equals(NUMBER_OF_STUFF) || kindOfReport.equals(SALES_OF_SQUARE_METRES) || kindOfReport.equals(SALES_OF_TONS)) {
+            if (numberOfStuffAndSalesOfSquareMatresAndTons) {
                 reportMap = ActionUtil.getMap(reportList);
             } else {
                 reportMap = ActionUtil.getMapWithCurrency(reportList, currencyExchangeRateList, currency);

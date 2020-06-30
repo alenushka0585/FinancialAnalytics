@@ -9,7 +9,7 @@ import java.sql.Date;
 
 public class LabourCostIndicator extends Indicator implements Fillable {
 
-    private LabourCostDaoImpl labourCostDao = new LabourCostDaoImpl();
+    private final LabourCostDaoImpl labourCostDao = new LabourCostDaoImpl();
 
     public LabourCostIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                                Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

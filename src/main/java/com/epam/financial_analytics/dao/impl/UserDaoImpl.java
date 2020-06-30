@@ -1,7 +1,6 @@
 package com.epam.financial_analytics.dao.impl;
 
 import com.epam.financial_analytics.connection.ConnectionPool;
-import com.epam.financial_analytics.dao.BaseDao;
 import com.epam.financial_analytics.dao.UserDao;
 import com.epam.financial_analytics.entity.dictionary.Role;
 import com.epam.financial_analytics.entity.dictionary.User;

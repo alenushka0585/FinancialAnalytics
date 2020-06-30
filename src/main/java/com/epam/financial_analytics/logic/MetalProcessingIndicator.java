@@ -8,7 +8,7 @@ import com.epam.financial_analytics.util.IndicatorUtil;
 import java.sql.Date;
 
 public class MetalProcessingIndicator extends Indicator implements Fillable {
-    private MetalProcessingDaoImpl metalProcessingDao = new MetalProcessingDaoImpl();
+    private final MetalProcessingDaoImpl metalProcessingDao = new MetalProcessingDaoImpl();
 
     public MetalProcessingIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                                     Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

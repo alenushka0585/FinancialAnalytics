@@ -13,7 +13,7 @@ public class SecurityFilter implements Filter {
     private String requestURI;
 
     @Override
-    public void init(FilterConfig fConfig) throws ServletException {
+    public void init(FilterConfig fConfig) {
         filterConfig = fConfig;
         requestURI = fConfig.getInitParameter("requestURI");
 

@@ -7,7 +7,7 @@ import com.epam.financial_analytics.util.IndicatorUtil;
 import java.sql.Date;
 
 public class ExpenseIndicator extends Indicator {
-    private ExpenseInfoDaoImpl expenseInfoDao = new ExpenseInfoDaoImpl();
+    private final ExpenseInfoDaoImpl expenseInfoDao = new ExpenseInfoDaoImpl();
 
     public ExpenseIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                             Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

@@ -1,7 +1,6 @@
 package com.epam.financial_analytics.connection;
 
 import java.sql.*;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -9,12 +8,12 @@ import org.apache.log4j.Logger;
 
 public final class ConnectionPool {
 
-    private String driverName;
-    private String url;
-    private String user;
-    private String password;
+    private final String driverName;
+    private final String url;
+    private final String user;
+    private final String password;
     private final int poolSize =
-            Integer.parseInt(ResourceBundle.getBundle("connectionPool").getString("db.poolsize"));
+            Integer.parseInt(ResourceBundle.getBundle("connectionPool").getString("db.poolSize"));
 
     private final BlockingQueue<Connection> connectionQueue =
             new ArrayBlockingQueue<>(poolSize);

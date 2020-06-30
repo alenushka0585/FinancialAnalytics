@@ -6,7 +6,7 @@ import com.epam.financial_analytics.entity.abstract_classes.Indicator;
 import java.sql.Date;
 
 public abstract class SalesSumProductGroupIndicator extends Indicator {
-    private SalesSumDaoIml salesSumDaoIml = new SalesSumDaoIml();
+    private final SalesSumDaoIml salesSumDaoIml = new SalesSumDaoIml();
 
     public SalesSumProductGroupIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                                          Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

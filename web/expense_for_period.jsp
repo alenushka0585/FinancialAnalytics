@@ -21,10 +21,10 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/key_indicators_for_period.jsp?language=ru">RU</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/expense_for_period.jsp?language=ru">RU</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/key_indicators_for_period.jsp?language=en">EN</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/expense_for_period.jsp?language=en">EN</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav justify-content-end">
@@ -65,7 +65,7 @@
     <br>
     <br>
     <div class="container">
-        <form name="result" action="${pageContext.request.contextPath}/controller/key_indicators_for_period" method="post">
+        <form name="result" action="${pageContext.request.contextPath}/controller/expense_for_period" method="post">
             <div class="form-row justify-content-center">
                 <h6 class="col-sm-2"><fmt:message key="period"/></h6>
                 <label for="startDate" class="col-sm-1 col-form-label">
@@ -116,11 +116,7 @@
                 </label>
                 <div class="col-sm-2">
                     <select id="kindOfReport" class="form-control" name="kindOfReport" size="1">
-                        <option value="Number of stuff"><fmt:message key="number.of.stuff"/></option>
-                        <option value="Labour cost"> <fmt:message key="labour.cost"/></option>
-                        <option value="Sales of square metres"> <fmt:message key="sales.sq.metres"/></option>
-                        <option value="Sales of tons"><fmt:message key="sales.tons"/></option>
-                        <option value="Revenue"><fmt:message key="revenue"/></option>
+                        <option value="<fmt:message key="expenses"/>"><fmt:message key="expenses"/></option>
                     </select>
                 </div>
             </div>

@@ -1,8 +1,6 @@
 package com.epam.financial_analytics.dao;
 
 import com.epam.financial_analytics.entity.report_classes.ProductGroupSales;
-import com.epam.financial_analytics.entity.report_classes.ReportWithOrganization;
-import com.epam.financial_analytics.entity.report_classes.ReportWithOrganizationAndCurrency;
 
 import java.sql.Date;
 import java.util.List;

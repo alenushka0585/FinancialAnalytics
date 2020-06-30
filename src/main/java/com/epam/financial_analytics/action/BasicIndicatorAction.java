@@ -65,11 +65,10 @@ public class BasicIndicatorAction implements Action {
 
             if (kindOfReport.equals(NUMBER_OF_STUFF) || kindOfReport.equals(SALES_OF_SQUARE_METRES) || kindOfReport.equals(SALES_OF_TONS)){
                 requestDispatcher = req.getRequestDispatcher(REPORT_WITH_ORGANIZATION_UNIT_RESULT_URL + JSP);
-                requestDispatcher.forward(req, resp);
             } else {
                 requestDispatcher = req.getRequestDispatcher(REPORT_WITH_ORGANIZATION_UNIT_AND_CURRENCY_RESULT_URL + JSP);
-                requestDispatcher.forward(req, resp);
             }
+            requestDispatcher.forward(req, resp);
         } else {
             resp.sendRedirect(RESTRICTED_URL + JSP);
         }

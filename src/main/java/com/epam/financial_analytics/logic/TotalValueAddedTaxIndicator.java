@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 public class TotalValueAddedTaxIndicator extends Indicator implements Fillable {
-    private ProductGroupDaoImpl productGroupDao = new ProductGroupDaoImpl();
-    private Map<String, ValueAddedTaxIndicator> valueAddedTaxIndicatorMap = new HashMap<>();
-    private List<ProductGroup> productGroupList;
+    private final ProductGroupDaoImpl productGroupDao = new ProductGroupDaoImpl();
+    private final Map<String, ValueAddedTaxIndicator> valueAddedTaxIndicatorMap = new HashMap<>();
+    private final List<ProductGroup> productGroupList;
 
     public TotalValueAddedTaxIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                                        Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

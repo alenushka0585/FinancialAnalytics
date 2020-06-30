@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class FinancialAnalyticsServlet extends HttpServlet {
-    private static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(FinancialAnalyticsServlet.class);
     private Action service;
 
@@ -19,12 +19,12 @@ public class FinancialAnalyticsServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         getAction(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         getAction(req, resp);
     }
 

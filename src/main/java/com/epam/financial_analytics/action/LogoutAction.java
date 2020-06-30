@@ -1,7 +1,5 @@
 package com.epam.financial_analytics.action;
 
-import com.epam.financial_analytics.dao.impl.UserDaoImpl;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

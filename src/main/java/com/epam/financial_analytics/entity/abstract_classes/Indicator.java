@@ -7,26 +7,25 @@ import com.epam.financial_analytics.util.IndicatorUtil;
 
 import java.sql.Date;
 import java.time.Period;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class Indicator {
     private Date presentPeriodStartDate;
-    private Date presentPeriodFinishDate;
-    private Date pastPeriodStartDate;
-    private Date pastPeriodFinishDate;
+    private final Date presentPeriodFinishDate;
+    private final Date pastPeriodStartDate;
+    private final Date pastPeriodFinishDate;
 
     private Period presentPeriod;
     private Period pastPeriod;
     private int amountOfMonths;
-    private int oneMonth = 1;
+    private final int oneMonth = 1;
 
     private long presentPeriodIndicator;
     private long pastPeriodIndicator;
     private long changingOfIndicator;
     private double changingOfIndicatorInPercents;
 
-    private String currencyName;
+    private final String currencyName;
 
     private List<CurrencyExchangeRate> presentPeriodCurrencyList;
     private List<CurrencyExchangeRate> pastPeriodCurrencyList;
@@ -34,7 +33,7 @@ public abstract class Indicator {
     private List<Report> presentPeriodIndicatorList;
     private List<Report> pastPeriodIndicatorList;
 
-    private CurrencyExchangeRateDaoImpl currencyExchangeRateDao = new CurrencyExchangeRateDaoImpl();
+    private final CurrencyExchangeRateDaoImpl currencyExchangeRateDao = new CurrencyExchangeRateDaoImpl();
 
     public Indicator(Date presentPeriodStartDate, Date presentPeriodFinishDate, Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {
         this.presentPeriodStartDate = presentPeriodStartDate;
@@ -62,12 +61,12 @@ public abstract class Indicator {
 
     public void fillPresentPeriodCurrencyList() {
         setPresentPeriodCurrencyList(currencyExchangeRateDao.getByCurrencyAndDate(currencyName, presentPeriodStartDate, presentPeriodFinishDate));
-        Collections.sort(getPresentPeriodCurrencyList(), CurrencyExchangeRate.dateSort);
+        getPresentPeriodCurrencyList().sort(CurrencyExchangeRate.dateSort);
     }
 
     public void fillPastPeriodCurrencyList() {
         setPastPeriodCurrencyList(currencyExchangeRateDao.getByCurrencyAndDate(currencyName, pastPeriodStartDate, pastPeriodFinishDate));
-        Collections.sort(getPastPeriodCurrencyList(), CurrencyExchangeRate.dateSort);
+        getPastPeriodCurrencyList().sort(CurrencyExchangeRate.dateSort);
     }
 
     public void setPresentPeriodCurrencyList(List<CurrencyExchangeRate> presentPeriodCurrencyList) {

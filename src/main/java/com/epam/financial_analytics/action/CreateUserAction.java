@@ -16,8 +16,8 @@ import java.io.IOException;
 import static com.epam.financial_analytics.action.ActionConstant.*;
 
 public class CreateUserAction implements Action {
-    private UserDaoImpl dao = new UserDaoImpl();
-    private RoleDaoImpl roleDao = new RoleDaoImpl();
+    private final UserDaoImpl dao = new UserDaoImpl();
+    private final RoleDaoImpl roleDao = new RoleDaoImpl();
     RequestDispatcher requestDispatcher;
 
     @Override

@@ -8,7 +8,7 @@ import com.epam.financial_analytics.util.IndicatorUtil;
 import java.sql.Date;
 
 public class RevenueIndicator extends Indicator implements Fillable {
-    private RevenueDaoImpl revenueDao = new RevenueDaoImpl();
+    private final RevenueDaoImpl revenueDao = new RevenueDaoImpl();
 
     public RevenueIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                             Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

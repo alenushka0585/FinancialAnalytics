@@ -63,10 +63,5 @@ public class CurrencyExchangeRate{
         return "CurrencyExchangeRate " + super.toString()+ ", " + currency;
     }
 
-    public static Comparator<CurrencyExchangeRate> dateSort = new Comparator<CurrencyExchangeRate>() {
-        @Override
-        public int compare(CurrencyExchangeRate o1, CurrencyExchangeRate o2) {
-            return o1.getDate().compareTo(o2.getDate());
-        }
-    };
+    public static Comparator<CurrencyExchangeRate> dateSort = Comparator.comparing(CurrencyExchangeRate::getDate);
 }

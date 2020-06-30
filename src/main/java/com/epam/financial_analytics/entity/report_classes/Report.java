@@ -56,10 +56,5 @@ public class Report {
         return "id:" + id + ", date:" + date + ", amount:" + amount;
     }
 
-    public static Comparator<Report> dateSort = new Comparator<Report>() {
-        @Override
-        public int compare(Report o1, Report o2) {
-            return o1.getDate().compareTo(o2.getDate());
-        }
-    };
+    public static Comparator<Report> dateSort = Comparator.comparing(Report::getDate);
 }

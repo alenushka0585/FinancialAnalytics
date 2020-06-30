@@ -6,15 +6,15 @@ import com.epam.financial_analytics.entity.abstract_classes.Indicator;
 import java.sql.Date;
 
 public class AllIndicator extends Indicator implements Fillable {
-    private PercentExpenseToRevenueIndicator percentExpenseToRevenueIndicator;
-    private MetalProcessingIndicator metalProcessingIndicator;
-    private TotalProfitabilityIndicator profitabilityTotalIndicator;
-    private MarginOnSquareMetreIndicator marginOnSquareMetreIndicator;
-    private MarginOnTonsIndicator marginOnTonsIndicator;
-    private MarginOnEmployeeIndicator marginOnEmployeeIndicator;
-    private LabourCostOnEmployeeIndicator labourCostOnEmployeeIndicator;
-    private LabourCostOnSquareMetreIndicator labourCostOnSquareMetreIndicator;
-    private LabourCostOnTonIndicator labourCostOnTonIndicator;
+    private final PercentExpenseToRevenueIndicator percentExpenseToRevenueIndicator;
+    private final MetalProcessingIndicator metalProcessingIndicator;
+    private final TotalProfitabilityIndicator profitabilityTotalIndicator;
+    private final MarginOnSquareMetreIndicator marginOnSquareMetreIndicator;
+    private final MarginOnTonsIndicator marginOnTonsIndicator;
+    private final MarginOnEmployeeIndicator marginOnEmployeeIndicator;
+    private final LabourCostOnEmployeeIndicator labourCostOnEmployeeIndicator;
+    private final LabourCostOnSquareMetreIndicator labourCostOnSquareMetreIndicator;
+    private final LabourCostOnTonIndicator labourCostOnTonIndicator;
 
     public AllIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                         Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

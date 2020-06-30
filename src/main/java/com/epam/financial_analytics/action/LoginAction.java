@@ -15,7 +15,7 @@ import static com.epam.financial_analytics.action.ActionConstant.*;
 
 public class LoginAction implements Action {
     private RequestDispatcher requestDispatcher;
-    private UserDaoImpl userDao = new UserDaoImpl();
+    private final UserDaoImpl userDao = new UserDaoImpl();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -27,7 +27,7 @@ public class LoginAction implements Action {
 
         if (user.getLogin() != null){
             session.setAttribute(USER, user);
-            resp.sendRedirect(MAINPAGE_URL + JSP);
+            resp.sendRedirect(MAIN_PAGE_URL + JSP);
         } else {
             requestDispatcher = req.getRequestDispatcher(LOGIN_ERROR_URL + JSP);
             requestDispatcher.forward(req, resp);

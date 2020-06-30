@@ -8,7 +8,7 @@ import com.epam.financial_analytics.util.IndicatorUtil;
 import java.sql.Date;
 
 public class SalesIndicator extends Indicator implements FillableWithProductGroup {
-    private SalesSumDaoIml salesSumDaoIml = new SalesSumDaoIml();
+    private final SalesSumDaoIml salesSumDaoIml = new SalesSumDaoIml();
 
     public SalesIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                           Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {

@@ -12,12 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 public class TotalProfitabilityIndicator extends Indicator implements Fillable {
-    private TotalSalesIndicator totalSalesIndicator;
-    private TotalValueAddedTaxIndicator totalValueAddedTaxIndicator;
-    private TotalMarginIndicator totalMarginIndicator;
-    private Map<String, ProfitabilityIndicator> profitabilityIndicatorMap = new HashMap<>();
-    private ProductGroupDaoImpl productGroupDao = new ProductGroupDaoImpl();
-    private List<ProductGroup> productGroupList;
+    private final TotalSalesIndicator totalSalesIndicator;
+    private final TotalValueAddedTaxIndicator totalValueAddedTaxIndicator;
+    private final TotalMarginIndicator totalMarginIndicator;
+    private final Map<String, ProfitabilityIndicator> profitabilityIndicatorMap = new HashMap<>();
+    private final ProductGroupDaoImpl productGroupDao = new ProductGroupDaoImpl();
+    private final List<ProductGroup> productGroupList;
 
     public TotalProfitabilityIndicator(Date presentPeriodStartDate, Date presentPeriodFinishDate,
                                        Date pastPeriodStartDate, Date pastPeriodFinishDate, String currencyName) {
