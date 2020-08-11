@@ -8,6 +8,7 @@ import com.epam.financial_analytics.entity.dictionary.OrganizationUnit;
 import com.epam.financial_analytics.entity.dictionary.User;
 import com.epam.financial_analytics.entity.report_classes.ReportWithOrganization;
 import com.epam.financial_analytics.util.ActionUtil;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,6 +22,7 @@ import java.util.*;
 import static com.epam.financial_analytics.action.ActionConstant.*;
 
 public class BasicIndicatorAction implements Action {
+    private static final Logger LOGGER = Logger.getLogger(BasicIndicatorAction.class);
     private ReportWithOrganizationDao dao;
     private OrganizationUnitDaoImpl organizationUnitDao = new OrganizationUnitDaoImpl();
     private CurrencyDaoImpl currencyDao = new CurrencyDaoImpl();
@@ -29,6 +31,7 @@ public class BasicIndicatorAction implements Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        LOGGER.info("Execute method starts in BasicIndicatorAction");
 
         Date date = Date.valueOf(req.getParameter(DATE));
         Currency currency = currencyDao.getByName(req.getParameter(CURRENCY));

@@ -25,6 +25,7 @@ public class UserDaoImpl implements UserDao<User> {
     private static final String UPDATE_USER = "UPDATE USER SET NAME = ?, LOGIN = ?, PASSWORD = ?, EMAIL = ?, ROLE_ID = ? WHERE ID = ?";
     private static final String DELETE_USER ="DELETE FROM USER WHERE ID = ?";
     private static final String GET_BY_LOGIN = "SELECT * FROM USER AS U INNER JOIN ROLE AS R ON U.ROLE_ID=R.ID WHERE LOGIN =?";
+    private static final String GET_BY_EMAIL = "SELECT * FROM USER AS U INNER JOIN ROLE AS R ON U.ROLE_ID=R.ID WHERE EMAIL =?";
     private static final String GET_BY_LOGIN_AND_PASSWORD = "SELECT * FROM USER AS U INNER JOIN ROLE AS R ON U.ROLE_ID=R.ID WHERE LOGIN =? AND PASSWORD=?";
 
     @Override
@@ -165,6 +166,33 @@ public class UserDaoImpl implements UserDao<User> {
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_LOGIN)){
 
             preparedStatement.setString(1, login);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    user.setId(resultSet.getLong("ID"));
+                    user.setName(resultSet.getString("NAME"));
+                    user.setLogin(resultSet.getString("LOGIN"));
+                    user.setPassword(resultSet.getString("PASSWORD"));
+                    user.setEMail(resultSet.getString("EMAIL"));
+                    user.setRole(new Role(resultSet.getLong("ROLE_ID"), resultSet.getString("R.NAME")));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQLException in UserDaoImpl getAll", e);
+        } finally {
+            connectionPool.returnConnection(connection);
+        }
+        return user;
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        connectionPool = ConnectionPool.getInstance();
+        connection = connectionPool.takeConnection();
+
+        User user = new User();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BY_EMAIL)){
+
+            preparedStatement.setString(1, email);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     user.setId(resultSet.getLong("ID"));

@@ -6,6 +6,7 @@ import com.epam.financial_analytics.dao.impl.OrganizationUnitDaoImpl;
 import com.epam.financial_analytics.entity.dictionary.OrganizationUnit;
 import com.epam.financial_analytics.entity.dictionary.User;
 import com.epam.financial_analytics.entity.report_classes.ReportWithOrganization;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,12 +19,14 @@ import java.sql.Date;
 import static com.epam.financial_analytics.action.ActionConstant.*;
 
 public class MetalProcessingAction implements Action {
+    private static final Logger LOGGER = Logger.getLogger(MetalProcessingAction.class);
     private final MetalProcessingDaoImpl dao = new MetalProcessingDaoImpl();
     private final OrganizationUnitDaoImpl organizationUnitDao = new OrganizationUnitDaoImpl();
     RequestDispatcher requestDispatcher;
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        LOGGER.info("Execute method starts in MetalProcessingAction");
 
         Date date = Date.valueOf(req.getParameter(DATE));
         String kindOfReport = req.getParameter(KIND_OF_REPORT);

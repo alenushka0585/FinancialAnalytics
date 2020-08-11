@@ -9,6 +9,7 @@ import com.epam.financial_analytics.entity.report_classes.CurrencyExchangeRate;
 import com.epam.financial_analytics.entity.report_classes.Report;
 import com.epam.financial_analytics.util.ActionUtil;
 import com.epam.financial_analytics.util.IndicatorUtil;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,6 +25,7 @@ import java.util.Map;
 import static com.epam.financial_analytics.action.ActionConstant.*;
 
 public class KeyIndicatorsForPeriodAction implements Action {
+    private static final Logger LOGGER = Logger.getLogger(KeyIndicatorsForPeriodAction.class);
     private RequestDispatcher requestDispatcher;
     private ReportWithOrganizationDao dao;
     private final OrganizationUnitDaoImpl organizationUnitDao = new OrganizationUnitDaoImpl();
@@ -36,6 +38,7 @@ public class KeyIndicatorsForPeriodAction implements Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        LOGGER.info("Execute method starts in KeyIndicatorsForPeriodAction");
 
         Date startDate = Date.valueOf(req.getParameter(START_DATE));
         Date finishDate = Date.valueOf(req.getParameter(FINISH_DATE));

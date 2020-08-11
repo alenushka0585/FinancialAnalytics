@@ -9,6 +9,7 @@ import com.epam.financial_analytics.entity.dictionary.ExpenseType;
 import com.epam.financial_analytics.entity.dictionary.OrganizationUnit;
 import com.epam.financial_analytics.entity.dictionary.User;
 import com.epam.financial_analytics.entity.report_classes.ExpenseInfo;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,6 +23,7 @@ import java.util.*;
 import static com.epam.financial_analytics.action.ActionConstant.*;
 
 public class ExpenseAction implements Action {
+    private static final Logger LOGGER = Logger.getLogger(ExpenseAction.class);
     private final ExpenseTypeDaoImpl expenseType = new ExpenseTypeDaoImpl();
     private final ExpenseInfoDaoImpl dao =  new ExpenseInfoDaoImpl();
     private final OrganizationUnitDaoImpl organizationUnitDao = new OrganizationUnitDaoImpl();
@@ -31,6 +33,7 @@ public class ExpenseAction implements Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        LOGGER.info("Execute method starts in ExpenseAction");
         Date date = Date.valueOf(req.getParameter(DATE));
         String kindOfReport = req.getParameter(KIND_OF_REPORT);
         Currency currency = currencyDao.getByName(req.getParameter(CURRENCY));

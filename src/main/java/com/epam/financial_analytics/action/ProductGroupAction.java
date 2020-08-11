@@ -4,6 +4,7 @@ import com.epam.financial_analytics.dao.impl.*;
 import com.epam.financial_analytics.entity.dictionary.*;
 import com.epam.financial_analytics.entity.dictionary.Currency;
 import com.epam.financial_analytics.entity.report_classes.ProductGroupSales;
+import org.apache.log4j.Logger;
 
 
 import javax.servlet.RequestDispatcher;
@@ -18,6 +19,7 @@ import java.util.*;
 import static com.epam.financial_analytics.action.ActionConstant.*;
 
 public class ProductGroupAction implements Action {
+    private static final Logger LOGGER = Logger.getLogger(ProductGroupAction.class);
     public static final String SALES_SUM = "salesSum";
     public static final String MARGIN_SUM = "marginSum";
     public static final String VALUE_ADDED_SUM = "valueAddedSum";
@@ -36,6 +38,7 @@ public class ProductGroupAction implements Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        LOGGER.info("Execute method starts in ProductGroupAction");
         Date date = Date.valueOf(req.getParameter(DATE));
         String kindOfReport = req.getParameter(KIND_OF_REPORT);
         Currency currency = currencyDao.getByName(req.getParameter(CURRENCY));

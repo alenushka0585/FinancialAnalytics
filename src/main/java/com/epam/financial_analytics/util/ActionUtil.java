@@ -20,7 +20,6 @@ import java.util.Map;
 import static com.epam.financial_analytics.action.ActionConstant.*;
 
 public class ActionUtil {
-    private static final int ONE_MONTH = 1;
     private static final int ONE_YEAR = 12;
 
     public static ReportWithOrganizationDao getDao(String kindOfReport){
@@ -172,27 +171,5 @@ public class ActionUtil {
             totalAmount = 0L;
         }
         return reportMap;
-    }
-
-    public static Map<String, Map<Integer,Long>> getTotalMapForOrganizationUnitAndExpense
-            (Map<String, Map<String, Map<Integer,Long>>> orgUnitAndExpenseMap,
-             List<OrganizationUnit> organizationUnitList, List<ExpenseType> expenseTypeList){
-        Map<String, Map<Integer, Long>> expenseMap = new HashMap<>();
-        Map<Integer, Long> map = new HashMap<>();
-
-        long totalAmount = 0L;
-
-        for (ExpenseType expenseType : expenseTypeList) {
-            for(int i = 0; i <= ONE_YEAR; i++){
-                for (OrganizationUnit organizationUnit : organizationUnitList) {
-                    totalAmount = totalAmount +
-                            orgUnitAndExpenseMap.get(organizationUnit.getName()).get(expenseType.getName()).get(i);
-                }
-                map.put(i, totalAmount);
-                totalAmount = 0L;
-            }
-            expenseMap.put(expenseType.getName(), map);
-        }
-        return expenseMap;
     }
 }

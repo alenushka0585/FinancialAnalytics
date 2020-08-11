@@ -29,6 +29,7 @@ public class FinancialAnalyticsServlet extends HttpServlet {
     }
 
     private void getAction(HttpServletRequest req, HttpServletResponse resp){
+
         String requestPathInfo = req.getPathInfo().toLowerCase();
 
         service = ActionFactory.getInstance().getActionFactory(requestPathInfo);

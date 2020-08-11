@@ -5,6 +5,7 @@ import com.epam.financial_analytics.dao.impl.CurrencyExchangeRateDaoImpl;
 import com.epam.financial_analytics.entity.dictionary.Currency;
 import com.epam.financial_analytics.entity.dictionary.User;
 import com.epam.financial_analytics.entity.report_classes.CurrencyExchangeRate;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ import java.util.*;
 import static com.epam.financial_analytics.action.ActionConstant.*;
 
 public class CurrencyExchangeRateAction implements Action {
+    private static final Logger LOGGER = Logger.getLogger(CurrencyExchangeRateAction.class);
     private final CurrencyExchangeRateDaoImpl dao = new CurrencyExchangeRateDaoImpl();
     private final CurrencyDaoImpl currencyDao = new CurrencyDaoImpl();
     RequestDispatcher requestDispatcher;
@@ -25,6 +27,8 @@ public class CurrencyExchangeRateAction implements Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        LOGGER.info("Execute method starts in CurrencyExchangeRateAction");
+
         Date date = Date.valueOf(req.getParameter(DATE));
         String kindOfReport = req.getParameter(KIND_OF_REPORT);
 

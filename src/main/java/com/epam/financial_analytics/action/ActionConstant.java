@@ -1,6 +1,6 @@
 package com.epam.financial_analytics.action;
 
-public class ActionConstant {
+public final class ActionConstant {
     public static final String LOGIN_PAGE_URL = "/login";
     public static final String LOGOUT_URL = "/logout";
     public static final String INDEX_URL = "/index";
@@ -10,6 +10,7 @@ public class ActionConstant {
     public static final String ANALYTICS_RESULT_URL = "/analytics_result";
     public static final String LOGIN_ERROR_URL = "/login_error";
     public static final String RESTRICTED_URL = "/restricted";
+    public static final String EMAIL_OR_LOGIN_EXISTS_URL = "/email_or_login_exists";
     public static final String REPORT_WITH_ORGANIZATION_UNIT_RESULT_URL = "/report_with_organization_unit_result";
     public static final String REPORT_WITH_ORGANIZATION_UNIT_AND_CURRENCY_RESULT_URL = "/report_with_organization_unit_and_currency_result";
     public static final String METAL_PROCESSING_URL = "/metal_processing";

@@ -29,8 +29,6 @@ public final class ConnectionPool {
         this.user = ResourceBundle.getBundle("connectionPool").getString("db.user");
         this.password = ResourceBundle.getBundle("connectionPool").getString("db.password");
 
-//        Locale.setDefault(Locale.ENGLISH);
-
         try {
             Class.forName(driverName);
             for ( int i = 0; i < poolSize; i++) {
